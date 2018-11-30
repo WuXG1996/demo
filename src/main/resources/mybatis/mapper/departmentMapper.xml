@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.DepartmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.pojo.Department">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="descr" jdbcType="VARCHAR" property="descr" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.demo.pojo.Department">
+        insert into department(id,name,descr) values(#{id},#{name},#{descr})
+    </insert>
+    
+    <select id="getById" parameterType="java.lang.Integer" resultType="com.example.demo.pojo.Department">
+        select id,name,descr from department where id = #{id}
+    </select>
+
+    <select id="selectDepartment" parameterType="com.example.demo.domain.BaseVo" resultMap="BaseResultMap">
+        SELECT id,name,descr from department limit #{startRow},#{pageSize}
+    </select>
+
+    <select id="countDepartment" resultType="java.lang.Long">
+        SELECT COUNT(1) from department
+    </select>
+    
+    <update id="update" parameterType="com.example.demo.pojo.Department">
+        update department set descr = #{descr} where id = #{id}
+    </update>
+    
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from department where id = #{id}
+    </delete>
+
+    <update id="batchUpdate" parameterType="java.util.List">
+    <!-- 接收list参数，循环着组装sql语句，注意for循环的写法
+         separator=";" 代表着每次循环完，在sql后面放一个分号
+         item="cus" 循环List的每条的结果集
+         collection="list" list 即为 map传过来的参数key -->
+        <foreach collection="list" separator=";" item="var">
+            update department set
+            name = #{var.name}
+            where id = #{var.id}
+        </foreach>
+    </update>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        <selectKey keyProperty="dataId" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into department (name,descr)
+        values
+        <foreach collection="list" item="var" separator=",">
+            (#{var.name}, #{var.descr})
+        </foreach>
+    </insert>
+</mapper>
