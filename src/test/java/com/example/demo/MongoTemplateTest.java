@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.pojo.*;
 import com.example.demo.pojo.mongodb.Answer;
 import com.example.demo.pojo.mongodb.Question;
+import com.mongodb.BasicDBObject;
 import org.hibernate.loader.criteria.CriteriaJoinWalker;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -182,5 +183,16 @@ public class MongoTemplateTest {
     @Test
     public void test12(){
         List<Question> questions = mongoTemplate.findAll(Question.class);
+    }
+
+    @Test
+    public void test13(){
+        //$lookup
+        /*Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.lookup("job", "jobId", "jobId", "jobInfo")
+        );
+        List<BasicDBObject> list = mongoTemplate.aggregate(aggregation, JobCollection.class, BasicDBObject.class).getMappedResults();*/
+
+        //需要连接的集合-本表字段-外表字段-外表连接后的别名
     }
 }
