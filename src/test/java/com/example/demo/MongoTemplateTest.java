@@ -167,10 +167,20 @@ public class MongoTemplateTest {
         question.setContent("问题3");
 
         List<Answer> answers = new ArrayList<>();
-        answers.add(new Answer("回复3-1"));
-        answers.add(new Answer("回复3-2"));
+        Answer answer1 = new Answer("回复3-1");
+        mongoTemplate.insert(answer1);
+        answers.add(answer1);
+
+        Answer answer2 = new Answer("回复3-2");
+        mongoTemplate.insert(answer2);
+        answers.add(answer2);
 
         question.setAnswers(answers);
         mongoTemplate.insert(question);
+    }
+
+    @Test
+    public void test12(){
+        List<Question> questions = mongoTemplate.findAll(Question.class);
     }
 }

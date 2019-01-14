@@ -28,6 +28,9 @@ public class Answer {
         this.content = content;
     }
 
+    public Answer() {
+    }
+
     public Answer(String content) {
         this.content = content;
     }
