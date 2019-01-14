@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Created by void on 2018/7/9.
@@ -147,6 +148,8 @@ public class MongoTemplateTest {
     @Test
     public void test9(){
         List<JobTo> list = mongoTemplate.find(Query.query(Criteria.where("tag.0").exists(true)), JobTo.class);
+        //提取jobId
+        List<String> jobIds = list.stream().map(JobTo::getJobId).collect(Collectors.toList());
     }
 
     @Test
