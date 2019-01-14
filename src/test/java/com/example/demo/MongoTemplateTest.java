@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import com.example.demo.pojo.*;
+import com.example.demo.pojo.mongodb.Answer;
+import com.example.demo.pojo.mongodb.Question;
 import org.hibernate.loader.criteria.CriteriaJoinWalker;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -157,5 +159,18 @@ public class MongoTemplateTest {
         List<Integer> tag = new ArrayList<>();
         tag.add(9);
         List<JobTo> list = mongoTemplate.find(Query.query(Criteria.where("tag").all(tag)), JobTo.class);
+    }
+
+    @Test
+    public void test11(){
+        Question question = new Question();
+        question.setContent("问题3");
+
+        List<Answer> answers = new ArrayList<>();
+        answers.add(new Answer("回复3-1"));
+        answers.add(new Answer("回复3-2"));
+
+        question.setAnswers(answers);
+        mongoTemplate.insert(question);
     }
 }
