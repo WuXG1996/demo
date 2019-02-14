@@ -16,9 +16,9 @@ public class ConsumerTest {
         properties.put(PropertyKeyConst.GROUP_ID, "GID_test");
         //阿里云密匙
         properties.put(PropertyKeyConst.AccessKey, "***");
-        properties.put(PropertyKeyConst.SecretKey, "****");
+        properties.put(PropertyKeyConst.SecretKey, "***");
         //TCP接入域名
-        properties.put(PropertyKeyConst.NAMESRV_ADDR, "****");
+        properties.put(PropertyKeyConst.NAMESRV_ADDR, "***");
 
         Consumer consumer = ONSFactory.createConsumer(properties);
         consumer.subscribe("topic_test", "TagB", new MessageListener() {
@@ -26,6 +26,8 @@ public class ConsumerTest {
             public Action consume(Message message, ConsumeContext consumeContext) {
                 try {
                     System.out.println(new String(message.getBody(), "utf-8"));
+//                    System.out.println(message.getUserProperties("name"));
+                    System.out.println("重复消费次数:"+message.getReconsumeTimes());
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
