@@ -9,12 +9,12 @@ import java.util.Properties;
 /**
  * Created by void on 2019/2/14.
  */
-public class ConsumerTest {
+public class Consumer2Test {
 
     public static void main(String[] args) {
         Properties properties = new Properties();
         //设置groupId(统一了原先的消费者id和生产者id)
-        properties.put(PropertyKeyConst.GROUP_ID, AliyunConstant.groupId);
+        properties.put(PropertyKeyConst.GROUP_ID, AliyunConstant.groupId2);
         //阿里云密匙
         properties.put(PropertyKeyConst.AccessKey, AliyunConstant.accessKey);
         properties.put(PropertyKeyConst.SecretKey, AliyunConstant.secretKey);
@@ -24,7 +24,7 @@ public class ConsumerTest {
         properties.put(PropertyKeyConst.MessageModel, PropertyValueConst.CLUSTERING);
 
         Consumer consumer = ONSFactory.createConsumer(properties);
-        consumer.subscribe(AliyunConstant.topicId, "TagA", new MessageListener() {
+        consumer.subscribe(AliyunConstant.topicId, "TagD", new MessageListener() {
             @Override
             public Action consume(Message message, ConsumeContext consumeContext) {
                 try {
