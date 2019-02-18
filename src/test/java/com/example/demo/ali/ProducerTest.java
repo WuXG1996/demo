@@ -104,6 +104,7 @@ public class ProducerTest {
             public void run() {
                 try{
                     Message msg = new Message(AliyunConstant.topicId, "TagD", "hello mq,this is tagD".getBytes());
+                    msg.setKey("aaa");
                     SendResult sendResult = producer.send(msg);
                     if(sendResult!=null){
                         logger.info("线程thread发送成功,topic:{},msgId:{}", sendResult.getTopic(), sendResult.getMessageId());
@@ -121,6 +122,7 @@ public class ProducerTest {
             public void run() {
                 try{
                     Message msg = new Message(AliyunConstant.topicId, "TagA", "hello mq,this is tagA".getBytes());
+                    msg.setKey("aaa");
                     SendResult sendResult = producer.send(msg);
                     if(sendResult!=null){
                         logger.info("线程anotherThread发送成功,topic:{},msgId:{}", sendResult.getTopic(), sendResult.getMessageId());
