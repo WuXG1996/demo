@@ -13,4 +13,7 @@ import java.util.List;
  */
 public class JavaTest {
 
+    public static void main(String[] args) {
+        System.out.println(String.format("(apply_types=%s OR hope_jobs=%s", "aa", "bb"));
+    }
 }

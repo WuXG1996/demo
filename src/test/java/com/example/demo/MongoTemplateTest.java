@@ -4,6 +4,7 @@ import com.example.demo.pojo.*;
 import com.example.demo.pojo.mongodb.Answer;
 import com.example.demo.pojo.mongodb.Question;
 import com.mongodb.BasicDBObject;
+import org.apache.hadoop.yarn.webapp.hamlet2.Hamlet;
 import org.hibernate.loader.criteria.CriteriaJoinWalker;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -88,6 +89,35 @@ public class MongoTemplateTest {
 
         List<User> list = mongoTemplate.find(query, User.class);
         System.out.println(list.size());
+    }
+
+    @Test
+    public void test3a(){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("password").is("123"));
+        Update update = new Update();
+        update.set("tags.2.name", "1231231");
+
+        mongoTemplate.updateFirst(query, update, User.class);
+        System.out.println(111);
+    }
+
+    @Test
+    public void test3b(){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("tags").elemMatch(Criteria.where("value").is("0").andOperator(Criteria.where("name").is("标签2"))));
+        boolean result = mongoTemplate.exists(query, User.class);
+    }
+
+    @Test
+    public void test4b(){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("password").is("123"));
+        Update update = new Update();
+        update.set("tags.2.name", "1231231");
+
+        mongoTemplate.updateFirst(query, update, User.class);
+        System.out.println(111);
     }
 
     @Test
