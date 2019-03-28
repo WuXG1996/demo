@@ -1,13 +1,14 @@
 package com.example.demo.jwt;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Test;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -19,7 +20,6 @@ public class JwtTest {
 
     //https://www.extlight.com/2018/11/26/JWT-%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/
 
-
     @Test
     public void t1(){
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -28,7 +28,7 @@ public class JwtTest {
         Date now = new Date();
 
         JwtBuilder builder = Jwts.builder()
-                .setId(UUID.randomUUID().toString())
+//                .setId(UUID.randomUUID().toString())
                 .setSubject("admin")
                 .setIssuedAt(now)
                 .setIssuer("void1996")
