@@ -1,0 +1,6 @@
+person:
+  name: wuxianggan
+  age: 23
+  birth: 1996/6/8
+  maps: {key1: 11, key2: 22}
+  like: [animal, novel, game]
