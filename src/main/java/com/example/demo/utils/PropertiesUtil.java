@@ -31,13 +31,11 @@ public class PropertiesUtil {
 			p.load(is);
 			value = p.getProperty(key);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				is.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -52,13 +50,11 @@ public class PropertiesUtil {
 					properiesName);
 			p.load(is);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				is.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -79,7 +75,6 @@ public class PropertiesUtil {
 			os.flush();
 			os.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
@@ -88,7 +83,6 @@ public class PropertiesUtil {
 				if (null != os)
 					os.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
