@@ -1,14 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.aop.TestAnnotation;
+import com.example.demo.web.aop.TestAnnotation;
 import com.example.demo.dao.UserDao;
 import com.example.demo.pojo.Tag;
 import com.example.demo.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.ws.rs.POST;
-import java.util.List;
 
 @RestController
 @RequestMapping("/test")

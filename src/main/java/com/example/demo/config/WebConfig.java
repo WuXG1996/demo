@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -13,18 +12,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.example.demo.filter.TimeFilter;
-import com.example.demo.interceptor.TimeInterceptor;
-import com.example.demo.listener.ListenerTest;
-import com.example.demo.servlet.ServletTest;
+import com.example.demo.web.filter.TimeFilter;
+import com.example.demo.web.interceptor.TimeInterceptor;
+import com.example.demo.web.listener.ListenerTest;
+import com.example.demo.web.servlet.ServletTest;
 
 /**
  * 利用注解声明这个类是配置文件
