@@ -1,17 +1,6 @@
 package com.example.demo.utils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-
-import jodd.io.StringInputStream;
-
+import java.io.*;
 
 
 /**
@@ -141,18 +130,6 @@ public class StreamUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static InputStream byteTOFInputStream(byte[] in) throws Exception {
-
-		InputStream is = new StringInputStream(InputStreamTOString(StreamUtils.byteTOInputStream(in)));
-		return is;
-	}
-	/**
-	 * 将byte数组转换成InputStream
-	 * 
-	 * @param in
-	 * @return
-	 * @throws Exception
-	 */
 	public static InputStream byteTOInputStream(byte[] in) throws Exception {
 
 		ByteArrayInputStream is = new ByteArrayInputStream(in);
@@ -216,7 +193,6 @@ public class StreamUtils {
 	/**
 	 * 根据文件路径创建文件输入流处理
 	 * 以字节为单位（非 unicode ）
-	 * @param path
 	 * @return
 	 */
 	public static FileInputStream getFileInputStream(String filepath) {
@@ -232,7 +208,6 @@ public class StreamUtils {
 	/**
 	 * 根据文件对象创建文件输入流处理
 	 * 以字节为单位（非 unicode ）
-	 * @param path
 	 * @return
 	 */
 	public static FileInputStream getFileInputStream(File file) {
@@ -265,7 +240,6 @@ public class StreamUtils {
 	/**
 	 * 根据文件路径创建文件输出流处理
 	 * 以字节为单位（非 unicode ）
-	 * @param path
 	 * @param append true:文件以追加方式打开,false:则覆盖原文件的内容
 	 * @return
 	 */
