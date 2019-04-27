@@ -6,9 +6,12 @@ import java.util.List;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
 
+import javax.annotation.sql.DataSourceDefinition;
 import javax.persistence.Id;
 
+@Data
 public class User implements Serializable{
 	private static final long serialVersionUID = 2246880492943450897L;
 	private Integer id;
@@ -27,58 +30,4 @@ public class User implements Serializable{
      */
     @JSONField(format="yyyy-MM-dd")
     private Date birthday;
-    
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
 }

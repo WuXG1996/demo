@@ -118,14 +118,13 @@ public class MongoTemplateTest {
     public void test4(){
         //mongodbTemplate针对子节点的分页显示
         Query query = new Query();
-        query.addCriteria(Criteria.where("commentId").is("5b97835a3590552248af9e56"));
         query.fields().slice("replays", 2, 3);
-        Comment comment = mongoTemplate.findOne(query, Comment.class);
+        List<Comment> comment = mongoTemplate.find(query, Comment.class);
 
-        Update update = new Update();
-        update.inc("size", -2);
+//        Update update = new Update();
+//        update.inc("size", -2);
 
-        mongoTemplate.updateFirst(query, update, Comment.class);
+//        mongoTemplate.updateFirst(query, update, Comment.class);
         System.out.println(111);
     }
 
@@ -142,7 +141,6 @@ public class MongoTemplateTest {
             }
 
             Comment comment = new Comment();
-//            comment.setCommentId(IdGenerate.uuid());
             comment.setContent("测试"+j);
             comment.setReplays(list);
 
