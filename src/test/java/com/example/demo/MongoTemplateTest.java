@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.pojo.*;
 import com.example.demo.pojo.mongodb.Answer;
 import com.example.demo.pojo.mongodb.Question;
@@ -216,5 +217,17 @@ public class MongoTemplateTest {
         List<BasicDBObject> list = mongoTemplate.aggregate(aggregation, JobCollection.class, BasicDBObject.class).getMappedResults();*/
 
         //需要连接的集合-本表字段-外表字段-外表连接后的别名
+    }
+
+    @Test
+    public void test14(){
+//        Question question = new Question();
+//        question.setContent("1111");
+//        question.setTest(11);
+//        mongoTemplate.insert(question);
+
+        Question question = mongoTemplate.findOne(Query.query(Criteria.where("content").is("1111")), Question.class);
+        System.out.println(JSON.toJSONString(question));
+        mongoTemplate.updateFirst(Query.query(Criteria.where("content").is("1111")), Update.update("test", 11.0), Question.class);
     }
 }

@@ -14,6 +14,8 @@ public class Question {
     private String questionId;
     private String content;
 
+    private Double test;
+
     @DBRef
     private List<Answer> answers;
 
@@ -39,5 +41,13 @@ public class Question {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
+    }
+
+    public Double getTest() {
+        return test;
+    }
+
+    public void setTest(Double test) {
+        this.test = test;
     }
 }
