@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.web.aop.SysLog;
 import com.example.demo.web.aop.TestAnnotation;
 import com.example.demo.dao.UserDao;
 import com.example.demo.pojo.Tag;
@@ -13,17 +14,20 @@ public class TestController {
 	@Autowired
 	private UserDao userDao;
 
-	@RequestMapping(value="/hello", method=RequestMethod.GET)  
+	@RequestMapping(value="/hello", method=RequestMethod.GET)
+	@SysLog("hello接口")
     public String hello() {  
         return "Hello World!";  
     }
 	
 	@RequestMapping("/test")
+	@SysLog
 	public String test(){
 		return "test";
 	}
 	
 	@RequestMapping("/nima")
+	@SysLog("nima接口")
 	public String nima(){
 		return "nima";
 	}
