@@ -7,6 +7,7 @@ import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.example.demo.domain.BaseVo;
 import com.example.demo.pojo.User;
 import com.example.demo.utils.ExcelUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +25,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class DepartmentTest {
 
     @Autowired
@@ -92,13 +95,15 @@ public class DepartmentTest {
     public void testBatch1(){
         Long d1 = System.currentTimeMillis();
         List<Department> result = new ArrayList<>();
-        for (int i=0;i<=50000;i++){
+        for (int i=0;i<=1000000;i++){
             Department department = new Department();
-            department.setName("测试部门");
-            department.setDescr("描述");
+            department.setName("测试部门"+i);
+            department.setDescr("描述"+i);
+            department.setUuid(UUID.randomUUID().toString());
             result.add(department);
             if(result.size()==2000){
                 departmentMapper.batchInsert(result);
+                log.info("插入{}条", i+1);
                 result.clear();
             }
         }
