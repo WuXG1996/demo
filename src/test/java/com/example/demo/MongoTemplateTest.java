@@ -230,4 +230,14 @@ public class MongoTemplateTest {
         System.out.println(JSON.toJSONString(question));
         mongoTemplate.updateFirst(Query.query(Criteria.where("content").is("1111")), Update.update("test", 11.0), Question.class);
     }
+
+    @Test
+    public void test15(){
+        //原先为Integer的num字段，设置了数字后，修改类型为String，mongodb还是可以正确映射进来，重新update后会修改db的类型
+        Job job = new Job();
+//        job.setNum(100);
+//        job.setTitle("测试1");
+//        mongoTemplate.insert(job);
+        Job job1 = mongoTemplate.findOne(Query.query(Criteria.where("jobId").is("5cf729d32b550f0904dbc2c8")), Job.class);
+    }
 }

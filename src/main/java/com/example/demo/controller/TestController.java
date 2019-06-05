@@ -49,6 +49,12 @@ public class TestController {
 	@TestAnnotation(id = 1, msg = "a")
 	@GetMapping("/a")
 	public void a(){
+		Thread thread = Thread.currentThread();
+		try {
+			thread.sleep(300L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println("TestController.a");
 	}
 
