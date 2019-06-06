@@ -4,11 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.pojo.*;
 import com.example.demo.pojo.mongodb.Answer;
 import com.example.demo.pojo.mongodb.Question;
+import com.mongodb.CommandResult;
+import org.bson.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapreduce.GroupBy;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -239,5 +242,30 @@ public class MongoTemplateTest {
 //        job.setTitle("测试1");
 //        mongoTemplate.insert(job);
         Job job1 = mongoTemplate.findOne(Query.query(Criteria.where("jobId").is("5cf729d32b550f0904dbc2c8")), Job.class);
+    }
+
+    @Test
+    public void test16(){
+        //新写法记录
+//        long d = System.currentTimeMillis();
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("releaseStatus").is(22));
+//        query.addCriteria(Criteria.where("releaseSubStatus").is(1));
+//        query.addCriteria(Criteria.where("recruitType").is(20));
+//        Pattern pattern = Pattern.compile("^" + adCode+ ".*", Pattern.CASE_INSENSITIVE);
+//        query.addCriteria(Criteria.where("adCode").regex(pattern));
+//
+//        GroupBy groupBy = new GroupBy("adCode");
+//
+//        Document document = new Document();
+////        document.put("distinct", "job");
+////        document.put("key", "adCode");
+//        document.put("groupBy", groupBy.getGroupByObject());
+//        document.put("query", query.getQueryObject());
+//
+//        CommandResult commandResult = mongoTemplate.executeCommand(document.toJson());
+//        long d2 = System.currentTimeMillis();
+//        System.out.println(d2-d);
+//        System.out.println(commandResult.get("values").toString());
     }
 }
