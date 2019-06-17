@@ -12,6 +12,7 @@ public class Job {
     private String jobId;
     private String title;
     private List<Integer> tag;
+    private String num;
 
     public String getJobId() {
         return jobId;

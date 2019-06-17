@@ -4,11 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.pojo.*;
 import com.example.demo.pojo.mongodb.Answer;
 import com.example.demo.pojo.mongodb.Question;
+import com.mongodb.CommandResult;
+import org.bson.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapreduce.GroupBy;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -229,5 +232,40 @@ public class MongoTemplateTest {
         Question question = mongoTemplate.findOne(Query.query(Criteria.where("content").is("1111")), Question.class);
         System.out.println(JSON.toJSONString(question));
         mongoTemplate.updateFirst(Query.query(Criteria.where("content").is("1111")), Update.update("test", 11.0), Question.class);
+    }
+
+    @Test
+    public void test15(){
+        //原先为Integer的num字段，设置了数字后，修改类型为String，mongodb还是可以正确映射进来，重新update后会修改db的类型
+        Job job = new Job();
+//        job.setNum(100);
+//        job.setTitle("测试1");
+//        mongoTemplate.insert(job);
+        Job job1 = mongoTemplate.findOne(Query.query(Criteria.where("jobId").is("5cf729d32b550f0904dbc2c8")), Job.class);
+    }
+
+    @Test
+    public void test16(){
+        //新写法记录
+//        long d = System.currentTimeMillis();
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("releaseStatus").is(22));
+//        query.addCriteria(Criteria.where("releaseSubStatus").is(1));
+//        query.addCriteria(Criteria.where("recruitType").is(20));
+//        Pattern pattern = Pattern.compile("^" + adCode+ ".*", Pattern.CASE_INSENSITIVE);
+//        query.addCriteria(Criteria.where("adCode").regex(pattern));
+//
+//        GroupBy groupBy = new GroupBy("adCode");
+//
+//        Document document = new Document();
+////        document.put("distinct", "job");
+////        document.put("key", "adCode");
+//        document.put("groupBy", groupBy.getGroupByObject());
+//        document.put("query", query.getQueryObject());
+//
+//        CommandResult commandResult = mongoTemplate.executeCommand(document.toJson());
+//        long d2 = System.currentTimeMillis();
+//        System.out.println(d2-d);
+//        System.out.println(commandResult.get("values").toString());
     }
 }
