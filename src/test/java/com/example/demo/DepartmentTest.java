@@ -5,7 +5,7 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.example.demo.domain.BaseVo;
-import com.example.demo.pojo.User;
+import com.example.demo.pojo.IUser;
 import com.example.demo.utils.ExcelUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;

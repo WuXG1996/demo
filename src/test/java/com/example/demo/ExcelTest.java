@@ -2,8 +2,9 @@ package com.example.demo;
 
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
+import com.example.demo.pojo.IUser;
 import com.example.demo.pojo.StudentEntity;
-import com.example.demo.pojo.User;
+import com.example.demo.pojo.IUser;
 import com.example.demo.utils.ExcelUtil;
 import org.junit.Test;
 
@@ -25,21 +26,21 @@ public class ExcelTest {
      */
     @Test
     public void test1() throws Exception {
-        List<User> list = new ArrayList<>();
+        List<IUser> list = new ArrayList<>();
 
-        User user1 = new User();
+        IUser user1 = new IUser();
         user1.setUsername("张三");
         user1.setPassword("aaa");
         user1.setAddress("五指山");
         user1.setStatus(0);
 
-        User user2 = new User();
+        IUser user2 = new IUser();
         user2.setUsername("李四");
         user2.setPassword("bbb");
         user2.setAddress("水帘洞");
         user2.setStatus(1);
 
-        User user3 = new User();
+        IUser user3 = new IUser();
         user3.setUsername("王五");
         user3.setPassword("ccc");
         user3.setAddress("快乐老家");
@@ -70,7 +71,7 @@ public class ExcelTest {
         try {
             ImportParams params = new ImportParams();
             params.setTitleRows(1);
-            List<User> list = ExcelImportUtil.importExcel(new FileInputStream(new File("templates/import.xlsx")),User.class,params);
+            List<IUser> list = ExcelImportUtil.importExcel(new FileInputStream(new File("templates/import.xlsx")),IUser.class,params);
 
             System.out.println(list.size());
         } catch (FileNotFoundException e) {

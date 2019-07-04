@@ -2,6 +2,8 @@ package com.example.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.pojo.*;
+import com.example.demo.pojo.mongodb.Address;
+import com.example.demo.pojo.mongodb.AddressBO;
 import com.example.demo.pojo.mongodb.Answer;
 import com.example.demo.pojo.mongodb.Question;
 import com.mongodb.CommandResult;
@@ -11,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.mapreduce.GroupBy;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -41,12 +44,12 @@ public class MongoTemplateTest {
         Query query = new Query();
         Pattern pattern = Pattern.compile("^.*" + "刘" +".*$", Pattern.CASE_INSENSITIVE);
         query.addCriteria(Criteria.where("username").regex(pattern));
-        List<User> list =  mongoTemplate.find(query,User.class);
+        List<IUser> list =  mongoTemplate.find(query,IUser.class);
     }
 
     @Test
     public void test2(){
-        User user = new User();
+        IUser user = new IUser();
         user.setId(333);
         user.setUsername("吴相旰");
         user.setPassword("123");
@@ -85,7 +88,7 @@ public class MongoTemplateTest {
 //        query.addCriteria(Criteria.where("tags").is("标签3"));
         query.addCriteria(Criteria.where("tags.value").all(list1));
 
-        List<User> list = mongoTemplate.find(query, User.class);
+        List<IUser> list = mongoTemplate.find(query, IUser.class);
         System.out.println(list.size());
     }
 
@@ -96,7 +99,7 @@ public class MongoTemplateTest {
         Update update = new Update();
         update.set("tags.2.name", "1231231");
 
-        mongoTemplate.updateFirst(query, update, User.class);
+        mongoTemplate.updateFirst(query, update, IUser.class);
         System.out.println(111);
     }
 
@@ -104,7 +107,7 @@ public class MongoTemplateTest {
     public void test3b(){
         Query query = new Query();
         query.addCriteria(Criteria.where("tags").elemMatch(Criteria.where("value").is("0").andOperator(Criteria.where("name").is("标签2"))));
-        boolean result = mongoTemplate.exists(query, User.class);
+        boolean result = mongoTemplate.exists(query, IUser.class);
     }
 
     @Test
@@ -114,7 +117,7 @@ public class MongoTemplateTest {
         Update update = new Update();
         update.set("tags.2.name", "1231231");
 
-        mongoTemplate.updateFirst(query, update, User.class);
+        mongoTemplate.updateFirst(query, update, IUser.class);
         System.out.println(111);
     }
 
@@ -267,5 +270,16 @@ public class MongoTemplateTest {
 //        long d2 = System.currentTimeMillis();
 //        System.out.println(d2-d);
 //        System.out.println(commandResult.get("values").toString());
+    }
+
+    @Test
+    public void test17(){
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("province").is("广东省")),
+                Aggregation.lookup("user", "userId", "userId", "userInfo"),
+                Aggregation.unwind("userInfo")
+        );
+        List<AddressBO> list = mongoTemplate.aggregate(aggregation, Address.class, AddressBO.class).getMappedResults();
+        list.forEach(address-> System.out.println(address.toString()));
     }
 }

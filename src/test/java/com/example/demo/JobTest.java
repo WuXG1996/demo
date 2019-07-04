@@ -12,7 +12,7 @@ import com.aliyun.opensearch.sdk.generated.search.*;
 import com.aliyun.opensearch.search.SearchParamsBuilder;
 import com.example.demo.config.OpenSearchConfig;
 import com.example.demo.pojo.JobTo;
-import com.example.demo.pojo.User;
+import com.example.demo.pojo.IUser;
 import com.example.demo.utils.OpenSearchUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -151,6 +151,6 @@ public class JobTest {
         Query query = new Query().addCriteria(Criteria.where("username").is("wxg"));
         Update update = new Update();
         update.inc("status", 1);
-        mongoTemplate.updateMulti(query, update, User.class);
+        mongoTemplate.updateMulti(query, update, IUser.class);
     }
 }

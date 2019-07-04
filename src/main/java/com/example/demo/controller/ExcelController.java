@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
-import com.example.demo.pojo.User;
+import com.example.demo.pojo.IUser;
 import com.example.demo.utils.ExcelUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,8 +41,8 @@ public class ExcelController {
             ImportParams params = new ImportParams();
             params.setHeadRows(2);//依情况而定
             try {
-                List<User> list = ExcelImportUtil.importExcel(file.getInputStream(),User.class,params);
-                for (User u : list) {
+                List<IUser> list = ExcelImportUtil.importExcel(file.getInputStream(),IUser.class,params);
+                for (IUser u : list) {
                     System.out.println(u.getUsername());
                     System.out.println(u.getPassword());
                     System.out.println(u.getAddress());
@@ -65,19 +65,19 @@ public class ExcelController {
 
     @RequestMapping("/excelExport")
     public void excelExport(HttpServletRequest request, HttpServletResponse response){
-        List<User> list = new ArrayList<>();
+        List<IUser> list = new ArrayList<>();
 
-        User user1 = new User();
+        IUser user1 = new IUser();
         user1.setUsername("张三");
         user1.setPassword("aaa");
         user1.setAddress("五指山");
 
-        User user2 = new User();
+        IUser user2 = new IUser();
         user2.setUsername("李四");
         user2.setPassword("bbb");
         user2.setAddress("水帘洞");
 
-        User user3 = new User();
+        IUser user3 = new IUser();
         user3.setUsername("王五");
         user3.setPassword("ccc");
         user3.setAddress("快乐老家");
@@ -87,7 +87,7 @@ public class ExcelController {
         list.add(user3);
 
         try {
-            ExcelUtil.exportByStream("用户", User.class, list, response);
+            ExcelUtil.exportByStream("用户", IUser.class, list, response);
         } catch (IOException e) {
             e.printStackTrace();
         }

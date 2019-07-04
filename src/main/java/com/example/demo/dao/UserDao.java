@@ -1,15 +1,13 @@
 package com.example.demo.dao;
 
-import com.example.demo.pojo.User;
-
-import java.util.List;
+import com.example.demo.pojo.IUser;
 
 public interface UserDao {
-    public int insert(User user);
+    int insert(IUser user);
     
-    public int deleteById(Integer id);
+    int deleteById(Integer id);
     
-    public int update(User user);
+    int update(IUser user);
     
-    public User getById(Integer id);
+    IUser getById(Integer id);
 }

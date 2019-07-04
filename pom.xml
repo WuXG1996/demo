@@ -163,10 +163,10 @@
 		</dependency>
 
 		<!--mongoDB普通java包-->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-		</dependency>
+		</dependency>-->
 		<!--mongodb springBoot-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

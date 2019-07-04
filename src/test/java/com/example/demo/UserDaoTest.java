@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.dao.UserDao;
-import com.example.demo.pojo.User;
+import com.example.demo.pojo.IUser;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,7 +20,7 @@ public class UserDaoTest {
 	
 	@Test
 	public void testInsert(){
-		User user = new User();
+        IUser user = new IUser();
 		user.setId(1);
 		user.setUsername("aaa");
 		user.setPassword("123");
@@ -32,13 +32,13 @@ public class UserDaoTest {
 	
 	//@Test
     public void testGetById() {
-        User user = this.userDao.getById(1);
+        IUser user = this.userDao.getById(1);
         System.out.println(user.getUsername());
     }
 	
 	//@Test
     public void testUpdate() {
-        User user = new User();
+        IUser user = new IUser();
         user.setId(1);
         user.setPassword("666");
         this.userDao.update(user);

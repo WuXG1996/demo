@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.pojo.IUser;
 import com.example.demo.web.aop.SysLog;
 import com.example.demo.web.aop.TestAnnotation;
 import com.example.demo.dao.UserDao;
 import com.example.demo.pojo.Tag;
-import com.example.demo.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +33,7 @@ public class TestController {
 	}
 
 	@PostMapping("/testDate")
-	public void test(User user){
+	public void test(IUser user){
 		userDao.insert(user);
 		System.out.println("11111");
 	}

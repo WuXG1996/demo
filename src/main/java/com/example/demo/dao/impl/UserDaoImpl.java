@@ -3,13 +3,13 @@ package com.example.demo.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.example.demo.pojo.IUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.dao.UserDao;
-import com.example.demo.pojo.User;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao{
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public int insert(User user) {
+	public int insert(IUser user) {
 		String sql = "insert into user(id,username,password,birthday) values(?,?,?,?)";
 		return this.jdbcTemplate.update(
 				sql, 
@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public int update(User user) {
+	public int update(IUser user) {
 		String sql = "update user set password=? where id=?";
 		return this.jdbcTemplate.update(
                 sql, 
@@ -44,13 +44,13 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public User getById(Integer id) {
+	public IUser getById(Integer id) {
 		String sql = "select * from user where id = ?";
-		return this.jdbcTemplate.queryForObject(sql, new RowMapper<User>(){
+		return this.jdbcTemplate.queryForObject(sql, new RowMapper<IUser>(){
 
 			@Override
-			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-				User user = new User();
+			public IUser mapRow(ResultSet rs, int rowNum) throws SQLException {
+				IUser user = new IUser();
 				user.setId(rs.getInt("id"));
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));

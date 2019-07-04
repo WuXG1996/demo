@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.demo.pojo.User;
+import com.example.demo.pojo.IUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -26,7 +26,7 @@ public class MongoDbController {
 
     @PostMapping("/save1")
     public void save1(){
-        User user = new User();
+        IUser user = new IUser();
         user.setId(2);
         user.setUsername("liujingbo");
         user.setPassword("123");
@@ -47,7 +47,7 @@ public class MongoDbController {
         Query query = new Query();
         query.addCriteria(Criteria.where("username").is("wu"));
         Update update = Update.update("address","西丽啦啦啦");
-        mongoTemplate.upsert(query,update,User.class);
+        mongoTemplate.upsert(query,update,IUser.class);
 
         //更新第一条
         //mongoTemplate.updateFirst()
@@ -57,7 +57,7 @@ public class MongoDbController {
     }
 
     @GetMapping("/query")
-    public List<User> query(){
+    public List<IUser> query(){
 //        Criteria criatira = new Criteria();
 //        criatira.andOperator(Criteria.where("userName").is("admin"), Criteria.where("password").is("f818fa8cf51ca364f367f0046bd014ff"));
 //        template.find(new Query(criatira), User.class);
@@ -66,27 +66,27 @@ public class MongoDbController {
         //query.addCriteria(Criteria.where("username").is("wu").andOperator(Criteria.where("password").is("123")));
         query.addCriteria(Criteria.where("username").regex(".*?\\" +"wu"+ ".*"));
 
-        List<User> list =  mongoTemplate.find(query,User.class);
+        List<IUser> list =  mongoTemplate.find(query,IUser.class);
         return list;
     }
 
     @GetMapping("/query2")
-    public List<User> query2(){
+    public List<IUser> query2(){
 //        Criteria criatira = new Criteria();
 //        criatira.andOperator(Criteria.where("userName").is("admin"), Criteria.where("password").is("f818fa8cf51ca364f367f0046bd014ff"));
 //        template.find(new Query(criatira), User.class);
 
         Query query = new Query();
         query.addCriteria(Criteria.where("password").is("123"));
-        List<User> list =  mongoTemplate.find(query,User.class);
+        List<IUser> list =  mongoTemplate.find(query,IUser.class);
         return list;
     }
 
     @GetMapping("/query3")
-    public List<User> query3(){
+    public List<IUser> query3(){
         Criteria criatira = new Criteria();
         criatira.andOperator(Criteria.where("username").is("wu"), Criteria.where("password").is("123"));
-        List<User> list =  this.mongoTemplate.find(new Query(criatira), User.class);
+        List<IUser> list =  this.mongoTemplate.find(new Query(criatira), IUser.class);
         return list;
     }
 }

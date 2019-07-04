@@ -12,7 +12,7 @@ import javax.annotation.sql.DataSourceDefinition;
 import javax.persistence.Id;
 
 @Data
-public class User implements Serializable{
+public class IUser implements Serializable{
 	private static final long serialVersionUID = 2246880492943450897L;
 	private Integer id;
 	@Excel(name = "用户名")
