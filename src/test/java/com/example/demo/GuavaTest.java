@@ -1,15 +1,20 @@
 package com.example.demo;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.base.Joiner;
-import com.google.common.base.Predicates;
-import com.google.common.base.Splitter;
+import com.google.common.base.*;
 import com.google.common.collect.*;
+import com.google.common.io.Files;
+import com.google.common.io.Resources;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author void
@@ -107,9 +112,88 @@ public class GuavaTest {
         System.out.println(intersection);
     }
 
-    //https://blog.csdn.net/wwwdc1012/article/details/82228458
     @Test
     public void test9(){
+        HashMap<String, Integer> mapA = Maps.newHashMap();
+        mapA.put("a", 1);mapA.put("b", 2);mapA.put("c", 3);
 
+        HashMap<String, Integer> mapB = Maps.newHashMap();
+        mapB.put("b", 20);mapB.put("c", 3);mapB.put("d", 4);
+
+        MapDifference differenceMap = Maps.difference(mapA, mapB);
+        boolean result = differenceMap.areEqual();
+        Map entriesDiffering = differenceMap.entriesDiffering();
+        Map entriesOnlyLeft = differenceMap.entriesOnlyOnLeft();
+        Map entriesOnlyRight = differenceMap.entriesOnlyOnRight();
+        Map entriesInCommon = differenceMap.entriesInCommon();
+
+        System.out.println(entriesDiffering);   // {b=(2, 20)}
+        System.out.println(entriesOnlyLeft);    // {a=1}
+        System.out.println(entriesOnlyRight);   // {d=4}
+        System.out.println(entriesInCommon);    // {c=3}
+    }
+
+    @Test
+    public void test10(){
+        Person person = new Person("aa", 14);
+        Person ps = new Person("bb", 13);
+        Ordering<Person> byOrdering = Ordering.natural().nullsFirst().onResultOf(new Function<Person, String>(){
+            public String apply(Person person1){
+                return person1.age.toString();
+            }
+        });
+        byOrdering.compare(person, ps);
+        System.out.println(byOrdering.compare(person, ps));
+    }
+
+    class Person{
+        private String name;
+        private Integer age;
+
+        public Person(String name, Integer age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Integer getAge() {
+            return age;
+        }
+
+        public void setAge(Integer age) {
+            this.age = age;
+        }
+    }
+
+    @Test
+    public void test11(){
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        for(int i=0; i<1000000; i++){
+            //1111
+        }
+        long nanos = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+        System.out.println(nanos);
+    }
+
+    @Test
+    public void test12() throws IOException {
+        File file = new File("D:/test.txt");
+        List<String> list = null;
+        try{
+            list = Files.readLines(file, Charsets.UTF_8);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        File to = new File("D:/test2.txt");
+        Files.copy(file, to);
+        Files.move(to, new File("D:/aa/test2.txt"));
+        URL url = Resources.getResource("ehcache.xml");
     }
 }
