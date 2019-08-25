@@ -5,9 +5,15 @@ import com.example.demo.web.aop.SysLog;
 import com.example.demo.web.aop.TestAnnotation;
 import com.example.demo.dao.UserDao;
 import com.example.demo.pojo.Tag;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.IOException;
+
+@Slf4j
 @RestController
 @RequestMapping("/test")
 public class TestController {
@@ -64,4 +70,35 @@ public class TestController {
 		System.out.println("TestController.b");
 		System.out.println(111);
 	}
+
+    private String key = "4HCBZ-Y4SEW-KFVRI-OLL6I-LVJZE-XIFBQ";
+
+	@GetMapping("/map")
+    public void map(){
+        OkHttpClient httpClient = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://apis.map.qq.com/ws/location/v1/ip?key="+key)
+                .build();
+        System.out.println(request);
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                System.out.println("失败了");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                log.info("======call:{}/n response:{}=====", call, response);
+                if(!response.isSuccessful()){
+                    System.out.println(11111111);
+                }
+                Headers headers = response.headers();
+                for(int i=0;i<headers.size();i++){
+                    System.out.println(headers.name(i)+":"+headers.value(i));
+                }
+                System.out.println(response.body().string());
+            }
+        });
+    }
 }
