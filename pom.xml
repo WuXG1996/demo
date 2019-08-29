@@ -242,6 +242,13 @@
 			<artifactId>okhttp</artifactId>
 			<version>3.3.0</version>
 		</dependency>
+
+        <!-- 操作xml -->
+		<dependency>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>2.1.1</version>
+		</dependency>
 	</dependencies>
 	
 	<!-- springcloud -->
