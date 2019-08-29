@@ -47,7 +47,7 @@ public class OkHttpUtil {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-        System.out.println(request);
+        log.info(request.toString());
 
         httpClient.newCall(request).enqueue(new Callback() {
             @Override
