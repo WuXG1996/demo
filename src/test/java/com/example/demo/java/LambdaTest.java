@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.java;
 
 import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;

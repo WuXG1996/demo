@@ -1,6 +1,7 @@
-package com.example.demo;
+package com.example.demo.database;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.mvc.pojo.*;
 import com.example.demo.mvc.pojo.mongodb.Address;
 import com.example.demo.mvc.pojo.mongodb.AddressBO;
 import com.example.demo.mvc.pojo.mongodb.Answer;

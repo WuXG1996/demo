@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.java;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.*;

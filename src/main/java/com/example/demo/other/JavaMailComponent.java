@@ -27,9 +27,9 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 public class JavaMailComponent {
     
     private static final String template = "mail.ftl";
+
     @Autowired
     private FreeMarkerConfigurer freeMarkerConfigurer;
-    
     @Autowired
     private JavaMailSender javaMailSender;
     @Autowired

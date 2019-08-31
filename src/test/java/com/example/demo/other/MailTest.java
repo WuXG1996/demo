@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.other;
 
 import com.example.demo.mvc.service.AsyncService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,24 +18,14 @@ import com.example.demo.other.JavaMailComponent;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class MainTest{
+public class MailTest{
     @Autowired
     private JavaMailComponent javaMailComponent;
     @Autowired
-    private AsyncService asyncService;
     
     @Test
     public void test() {
     	//发送邮件给1150662756@qq.com
         this.javaMailComponent.sendMail("1150662756@qq.com");
-    }
-
-    @Test
-    public void test1(){
-        long d1 = System.currentTimeMillis();
-        asyncService.test1();
-        long d2 = System.currentTimeMillis();
-        log.info("耗时:{}", d2-d1);
-        System.out.println(1111);
     }
 }

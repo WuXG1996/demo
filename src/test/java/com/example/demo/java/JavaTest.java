@@ -1,6 +1,4 @@
-package com.example.demo;
-
-import com.example.demo.mvc.pojo.JobTo;
+package com.example.demo.java;
 
 /**
  * Created by void on 2018/11/26.
