@@ -5,7 +5,6 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.example.demo.domain.BaseVo;
-import com.example.demo.pojo.IUser;
 import com.example.demo.utils.ExcelUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -15,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.demo.mapper.DepartmentMapper;
-import com.example.demo.pojo.Department;
+import com.example.demo.mvc.mapper.DepartmentMapper;
+import com.example.demo.mvc.pojo.Department;
 
 import java.io.File;
 import java.io.FileInputStream;

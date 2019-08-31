@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.DepartmentMapper">
+<mapper namespace="com.example.demo.mvc.mapper.DepartmentMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.demo.pojo.Department">
+    <resultMap id="BaseResultMap" type="com.example.demo.mvc.pojo.Department">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="descr" jdbcType="VARCHAR" property="descr" />
     </resultMap>
 
-    <insert id="insert" parameterType="com.example.demo.pojo.Department">
+    <insert id="insert" parameterType="com.example.demo.mvc.pojo.Department">
         insert into department(id,name,descr) values(#{id},#{name},#{descr})
     </insert>
     
-    <select id="getById" parameterType="java.lang.Integer" resultType="com.example.demo.pojo.Department">
+    <select id="getById" parameterType="java.lang.Integer" resultType="com.example.demo.mvc.pojo.Department">
         select id,name,descr from department where id = #{id}
     </select>
 
@@ -25,7 +25,7 @@
         SELECT COUNT(1) from department
     </select>
     
-    <update id="update" parameterType="com.example.demo.pojo.Department">
+    <update id="update" parameterType="com.example.demo.mvc.pojo.Department">
         update department set descr = #{descr} where id = #{id}
     </update>
     

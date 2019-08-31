@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.service.AsyncService;
+import com.example.demo.mvc.service.AsyncService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,20 +1,16 @@
 package com.example.demo;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.pojo.*;
-import com.example.demo.pojo.mongodb.Address;
-import com.example.demo.pojo.mongodb.AddressBO;
-import com.example.demo.pojo.mongodb.Answer;
-import com.example.demo.pojo.mongodb.Question;
-import com.mongodb.CommandResult;
-import org.bson.Document;
+import com.example.demo.mvc.pojo.mongodb.Address;
+import com.example.demo.mvc.pojo.mongodb.AddressBO;
+import com.example.demo.mvc.pojo.mongodb.Answer;
+import com.example.demo.mvc.pojo.mongodb.Question;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.mapreduce.GroupBy;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;

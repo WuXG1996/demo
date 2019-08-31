@@ -24,8 +24,6 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
-		//context.getBean(WebConfig.class).show();
-		//context.getBean(DataSourceProperties.class).show();
 	}
 	
 	/**

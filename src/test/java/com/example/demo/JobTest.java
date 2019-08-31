@@ -11,8 +11,8 @@ import com.aliyun.opensearch.sdk.generated.commons.OpenSearchException;
 import com.aliyun.opensearch.sdk.generated.search.*;
 import com.aliyun.opensearch.search.SearchParamsBuilder;
 import com.example.demo.config.OpenSearchConfig;
-import com.example.demo.pojo.JobTo;
-import com.example.demo.pojo.IUser;
+import com.example.demo.mvc.pojo.JobTo;
+import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.utils.OpenSearchUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -23,13 +23,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.messaging.simp.user.UserRegistryMessageHandler;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by void on 2018/11/23.

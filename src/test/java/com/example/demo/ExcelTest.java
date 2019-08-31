@@ -2,9 +2,9 @@ package com.example.demo;
 
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
-import com.example.demo.pojo.IUser;
-import com.example.demo.pojo.StudentEntity;
-import com.example.demo.pojo.IUser;
+import com.example.demo.mvc.pojo.IUser;
+import com.example.demo.mvc.pojo.StudentEntity;
+import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.utils.ExcelUtil;
 import org.junit.Test;
 

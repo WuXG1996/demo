@@ -12,6 +12,7 @@ import java.util.Properties;
 
 /**
  * Created by void on 2019/4/10.
+ * 获取非application/bootstrap名称的yml，properties文件信息
  */
 
 public class YamlPropertySourceFactory implements PropertySourceFactory {

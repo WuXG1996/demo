@@ -36,7 +36,7 @@ public class MyBatisConfiguration {
             e.printStackTrace();
         }
         // 设置别名包
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.example.demo.pojo");
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.example.demo.mvc.pojo");
         return sqlSessionFactoryBean;
     }
 
@@ -44,7 +44,7 @@ public class MyBatisConfiguration {
     @ConditionalOnBean(SqlSessionFactoryBean.class) // 当 SqlSessionFactoryBean 实例存在时创建对象
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.example.demo.mapper");
+        mapperScannerConfigurer.setBasePackage("com.example.demo.mvc.mapper");
         return mapperScannerConfigurer;
     }
 }

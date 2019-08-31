@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.demo.dao.RoleRepository;
-import com.example.demo.pojo.Role;
+import com.example.demo.mvc.dao.RoleRepository;
+import com.example.demo.mvc.pojo.Role;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

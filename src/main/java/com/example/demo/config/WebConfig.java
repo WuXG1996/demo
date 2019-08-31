@@ -31,28 +31,11 @@ import com.example.demo.web.servlet.ServletTest;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
 	
-	/*@Value("${ds.username}")
-	private String userName;*/
-	
 	@Autowired
 	private Environment environment;
 	
 	@Autowired
     private TimeInterceptor timeInterceptor;
-	
-	/**
-	 * 解决跨域问题
-	 */
-	/*@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		 registry.addMapping("/fastjson/**")
-         	.allowedOrigins("http://localhost:8020");// 允许 8020 端口访问
-	}*/
-	
-	/*public void show(){
-		System.out.println("ds.username:"+this.userName);
-		System.out.println("ds.password:"+this.environment.getProperty("ds.password"));
-	}*/
 	
 	/**
 	 * 整合FastJson
