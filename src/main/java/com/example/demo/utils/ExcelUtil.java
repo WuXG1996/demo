@@ -117,14 +117,4 @@ public class ExcelUtil {
         out.flush();
     }
 
-    public static void exportBigData(Workbook workbook) throws IOException {
-        ExcelExportUtil.closeExportBigExcel();
-        File savefile = new File("D:/excel/");
-        if (!savefile.exists()) {
-            savefile.mkdirs();
-        }
-        FileOutputStream fos = new FileOutputStream("D:/excel/bigExcel.xlsx");
-        workbook.write(fos);
-        fos.close();
-    }
 }

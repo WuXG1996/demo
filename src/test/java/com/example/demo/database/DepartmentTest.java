@@ -110,29 +110,4 @@ public class DepartmentTest {
 
         System.out.println(System.currentTimeMillis()-d1);
     }
-
-    @Test
-    public void bigExport() throws IOException {
-        Long d1 = System.currentTimeMillis();
-        Long count = departmentMapper.countDepartment();
-
-        ExportParams params = new ExportParams("大数据测试", "测试");
-        Workbook workbook = null;
-
-        int step = 2000;
-        int i = 0;
-        while(i*step<count){
-            BaseVo baseVo = new BaseVo();
-            baseVo.setStartRow(i*step);
-            baseVo.setPageSize(step);
-            List<Department> list = departmentMapper.selectDepartment(baseVo);
-
-            workbook = ExcelExportUtil.exportBigExcel(params, Department.class, list);
-
-            i++;
-            System.out.println(i);
-        }
-        ExcelUtil.exportBigData(workbook);
-        System.out.println(System.currentTimeMillis()-d1);
-    }
 }

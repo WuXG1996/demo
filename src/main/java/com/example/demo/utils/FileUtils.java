@@ -6,16 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 
 /**
  * 文件操作工具类
  * @author 张代浩
  *
  */
+@Slf4j
 public class FileUtils {
-	private static final Logger logger = Logger.getLogger(FileUtils.class);
 	/**
 	 * 获取文件扩展名
 	 * 
