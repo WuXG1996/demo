@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.mvc.controller;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.mvc.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -25,14 +26,16 @@ public class MongoController {
     private MongoTemplate mongoTemplate;
 
     @PostMapping("/save1")
-    public void save1(){
+    public IUser save1(@RequestBody IUser rUser){
         IUser user = new IUser();
-        user.setId(2);
-        user.setUsername("liujingbo");
-        user.setPassword("123");
-        user.setBirthday(new Date());
-        user.setAddress("龙岗");
+        user.setId(rUser.getId());
+        user.setUsername(rUser.getUsername());
+        user.setPassword(rUser.getPassword());
+        user.setBirthday(rUser.getBirthday());
+        user.setAddress(rUser.getAddress());
         mongoTemplate.insert(user);
+
+        return user;
     }
 
     @PostMapping("/save2")
