@@ -1,5 +1,6 @@
 package com.example.demo.database;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.Tag;
 import com.example.demo.utils.BeanUtils;
@@ -10,7 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -211,5 +214,49 @@ public class RedisTest {
         Set<String> set2 = redisTemplate.opsForSet().difference("set2", "set3");
         //并集
         Set<String> set3 = redisTemplate.opsForSet().union("set2", "set3");
+    }
+
+    @Test
+    public void test30(){
+        //返回两个集合中随机数，这两个随机数绝对不一样
+        Set<String> set = redisTemplate.opsForSet().distinctRandomMembers("set2", 2);
+        for(int i=0;i<50;i++){
+            //会有重复情况
+            System.out.println(JSON.toJSONString(redisTemplate.opsForSet().randomMembers("set2", 2)));
+        }
+    }
+
+    //*****************zset*****************
+    @Test
+    public void test31(){
+        //普通加入
+        redisTemplate.opsForZSet().add("zset1", "a", 1);
+        redisTemplate.opsForZSet().add("zset1", "b", 2);
+        redisTemplate.opsForZSet().add("zset1", "c", 3);
+        redisTemplate.opsForZSet().add("zset1", "d", 4);
+        redisTemplate.opsForZSet().add("zset1", "e", 5);
+
+        //批量加入
+        ZSetOperations.TypedTuple typedTuple1 = new DefaultTypedTuple("a",1d);
+        ZSetOperations.TypedTuple typedTuple2 = new DefaultTypedTuple("b",2d);
+        ZSetOperations.TypedTuple typedTuple3 = new DefaultTypedTuple("c",3d);
+        Set<ZSetOperations.TypedTuple> typedTuples = new HashSet<ZSetOperations.TypedTuple>();
+        typedTuples.add(typedTuple1);
+        typedTuples.add(typedTuple2);
+        typedTuples.add(typedTuple3);
+        redisTemplate.opsForZSet().add("zset2", typedTuples);
+    }
+
+    @Test
+    public void test32(){
+        //整个zset的size
+        System.out.println(redisTemplate.opsForZSet().zCard("zset2"));
+        //指定分数范围的size
+        System.out.println(redisTemplate.opsForZSet().count("zset2", 1, 2));
+        //指定某个元素增加某个分数值，可以设置负数
+        redisTemplate.opsForZSet().incrementScore("zset2", "a", 3);
+
+//        redisTemplate.opsForZSet().rangeByScore("zset2", );
+        Set<ZSetOperations.TypedTuple> set2 = redisTemplate.opsForZSet().range("zset2", 0, 2);
     }
 }
