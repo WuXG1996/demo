@@ -1,15 +1,11 @@
 package com.example.demo.other;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Test;
 
-import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author void
