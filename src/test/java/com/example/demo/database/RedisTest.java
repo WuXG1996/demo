@@ -1,6 +1,11 @@
 package com.example.demo.database;
 
+import com.example.demo.mvc.pojo.IUser;
+import com.example.demo.mvc.pojo.Tag;
+import com.example.demo.utils.BeanUtils;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +112,104 @@ public class RedisTest {
     //*********************hash******************
     @Test
     public void test20(){
+        IUser user = new IUser();
+        user.setId(1);
+        user.setUsername("wxg");
+        user.setPassword("123");
+        user.setAddress("广东");
+        user.setStatus(0);
+        Tag tag1 = new Tag("n1", "v1", null);
+        Tag tag2 = new Tag("n2", "v2", null);
+        List<Tag> tags = new ArrayList<Tag>(){{
+            this.add(tag1);
+            this.add(tag2);
+        }};
+        user.setTags(tags);
+        user.setBirthday(new Date());
+        redisTemplate.opsForHash().putAll("hash1", BeanUtils.convertBean2TreeMap(user));
+    }
 
+    @Test
+    public void test21(){
+        redisTemplate.opsForHash().put("hash1", "likes", "games");
+        Map<String,Object> map = redisTemplate.opsForHash().entries("hash1");
+        for (String s : map.keySet()) {
+            System.out.println(map.get(s));
+        }
+        String address = (String) redisTemplate.opsForHash().get("hash1", "address");
+        System.out.println(address);
+    }
+
+    @Test
+    public void test22(){
+        redisTemplate.opsForHash().increment("hash1", "id", 1);
+        Long len = redisTemplate.opsForHash().lengthOfValue("hash1", "tags");
+    }
+
+    @Test
+    public void test23(){
+        List<Object> list = redisTemplate.opsForHash().multiGet("hash1", ImmutableList.of("address", "id", "tags"));
+        list.forEach(System.out::println);
+    }
+
+    //*********************list************************
+    //列表的头部（左边）或者尾部（右边）
+    //头部*******************尾部<--
+    @Test
+    public void test24(){
+        redisTemplate.opsForList().rightPush("list1", 1);
+        redisTemplate.opsForList().rightPush("list1", 2);
+        redisTemplate.opsForList().leftPush("list1", 3);
+        redisTemplate.opsForList().leftPush("list1", 4);
+    }
+
+    @Test
+    public void test25(){
+        redisTemplate.opsForList().leftPop("list1");
+        //等于BLPOP
+        redisTemplate.opsForList().leftPop("list1", 30L, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void test26(){
+        Integer number = (Integer) redisTemplate.opsForList().index("list1", 0);
+        System.out.println(number);
+
+        List<Integer> list = redisTemplate.opsForList().range("list1", 0, -1);
+
+        //两个索引位置元素都会包含在内
+        List<Integer> list2 = redisTemplate.opsForList().range("list1", 0, 1);
+    }
+
+    //***************************set******************************
+    @Test
+    public void test27(){
+        redisTemplate.opsForSet().add("set1", 1);
+        redisTemplate.opsForSet().add("set1", 2);
+        redisTemplate.opsForSet().add("set1", 3);
+        redisTemplate.opsForSet().add("set1", 4);
+        redisTemplate.opsForSet().add("set1", 3);
+        System.out.println(redisTemplate.opsForSet().size("set1"));
+        System.out.println(redisTemplate.opsForSet().isMember("set1", 1));
+        Set<String> set = redisTemplate.opsForSet().members("set1");
+    }
+
+    @Test
+    public void test28(){
+        Integer num = (Integer) redisTemplate.opsForSet().pop("set1");
+        List<Integer> list = redisTemplate.opsForSet().pop("set1", 2);
+    }
+
+    @Test
+    public void test29(){
+        redisTemplate.opsForSet().add("set2", 1,2,3,4,5,6);
+        redisTemplate.opsForSet().add("set3", 4,5,6,7,8,9);
+
+        //交集
+        Set<String> set1 = redisTemplate.opsForSet().intersect("set2", "set3");
+        //差集
+        Set<String> set2 = redisTemplate.opsForSet().difference("set2", "set3");
+        //并集
+        Set<String> set3 = redisTemplate.opsForSet().union("set2", "set3");
     }
 }
