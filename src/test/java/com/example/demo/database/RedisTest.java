@@ -250,13 +250,23 @@ public class RedisTest {
     @Test
     public void test32(){
         //整个zset的size
-        System.out.println(redisTemplate.opsForZSet().zCard("zset2"));
+//        System.out.println(redisTemplate.opsForZSet().zCard("zset2"));
         //指定分数范围的size
-        System.out.println(redisTemplate.opsForZSet().count("zset2", 1, 2));
+//        System.out.println(redisTemplate.opsForZSet().count("zset2", 1, 2));
         //指定某个元素增加某个分数值，可以设置负数
-        redisTemplate.opsForZSet().incrementScore("zset2", "a", 3);
+//        redisTemplate.opsForZSet().incrementScore("zset2", "a", 3);
 
-//        redisTemplate.opsForZSet().rangeByScore("zset2", );
-        Set<ZSetOperations.TypedTuple> set2 = redisTemplate.opsForZSet().range("zset2", 0, 2);
+
+        //通过下标区间获取
+//        Set<ZSetOperations.TypedTuple> set2 = redisTemplate.opsForZSet().range("zset2", 0, 2);
+        //通过分数获取
+        System.out.println(JSON.toJSONString(redisTemplate.opsForZSet().rangeByScore("zset2", 1, 3)));
+        //通过分数获取带分数的set集合
+//        Set<ZSetOperations.TypedTuple<Integer>> set = redisTemplate.opsForZSet().rangeByScoreWithScores("zset2", 1, 3);
+    }
+
+    @Test
+    public void test33(){
+        System.out.println(redisTemplate.opsForZSet().reverseRangeByScore("zset2", 1,3));
     }
 }
