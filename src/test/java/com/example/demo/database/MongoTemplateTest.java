@@ -42,13 +42,17 @@ public class MongoTemplateTest {
         Pattern pattern = Pattern.compile("^.*" + "刘" +".*$", Pattern.CASE_INSENSITIVE);
         query.addCriteria(Criteria.where("username").regex(pattern));
         List<IUser> list =  mongoTemplate.find(query,IUser.class);
+        System.out.println(JSON.toJSONString(list));
     }
 
+    /**
+     * 批量插入
+     */
     @Test
     public void test2(){
         IUser user = new IUser();
         user.setId(333);
-        user.setUsername("吴相旰");
+        user.setUsername("wxg");
         user.setPassword("123");
         user.setAddress("江西省宜春市");
         List<Tag> list = new ArrayList<>();
@@ -72,68 +76,106 @@ public class MongoTemplateTest {
         mongoTemplate.insert(user);
     }
 
+    /**
+     * List<String>节点判断某个字符串存在
+     */
     @Test
     public void test3(){
-        List<String> list1 = new ArrayList<>();
-        list1.add("0");
-        list1.add("1");
-        list1.add("2");
-
-
         Query query = new Query();
-        //测试List<String>这种mongodb结构节点
-//        query.addCriteria(Criteria.where("tags").is("标签3"));
-        query.addCriteria(Criteria.where("tags.value").all(list1));
-
+        query.addCriteria(Criteria.where("phones").is("11111111111"));
         List<IUser> list = mongoTemplate.find(query, IUser.class);
         System.out.println(list.size());
     }
 
-    @Test
-    public void test3a(){
-        Query query = new Query();
-        query.addCriteria(Criteria.where("password").is("123"));
-        Update update = new Update();
-        update.set("tags.2.name", "1231231");
-
-        mongoTemplate.updateFirst(query, update, IUser.class);
-        System.out.println(111);
-    }
-
-    @Test
-    public void test3b(){
-        Query query = new Query();
-        query.addCriteria(Criteria.where("tags").elemMatch(Criteria.where("value").is("0").andOperator(Criteria.where("name").is("标签2"))));
-        boolean result = mongoTemplate.exists(query, IUser.class);
-    }
-
-    @Test
-    public void test4b(){
-        Query query = new Query();
-        query.addCriteria(Criteria.where("password").is("123"));
-        Update update = new Update();
-        update.set("tags.2.name", "1231231");
-
-        mongoTemplate.updateFirst(query, update, IUser.class);
-        System.out.println(111);
-    }
-
+    /**
+     * 匹配某个集合范围在List<Object>中对象的某个属性都存在
+     * eg:
+     * "tags" : [
+             {
+             "name" : "标签1",
+             "value" : "0"
+             },
+             {
+             "name" : "标签2",
+             "value" : "1"
+             },
+             {
+             "name" : "标签3",
+             "value" : "2"
+             }
+             ]
+     */
     @Test
     public void test4(){
-        //mongodbTemplate针对子节点的分页显示
+        List<String> list = new ArrayList<String>(){{
+            this.add("0");
+            this.add("1");
+            this.add("2");
+        }};
         Query query = new Query();
-        query.fields().slice("replays", 2, 3);
-        List<Comment> comment = mongoTemplate.find(query, Comment.class);
-
-//        Update update = new Update();
-//        update.inc("size", -2);
-
-//        mongoTemplate.updateFirst(query, update, Comment.class);
-        System.out.println(111);
+        query.addCriteria(Criteria.where("tags.value").all(list));
+        List<IUser> users = mongoTemplate.find(query, IUser.class);
+        System.out.println(users.size());
     }
 
+    /**
+     * 修改数组对象第三个元素(索引2)的属性值
+     */
     @Test
     public void test5(){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("password").is("111"));
+        Update update = new Update();
+        update.set("tags.2.name", "修改后的标签名");
+        mongoTemplate.updateFirst(query, update, IUser.class);
+    }
+
+    /**
+     * 对List<Object>的每一个元素循环对比正确的两个属性值
+     */
+    @Test
+    public void test6(){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("tags").elemMatch(Criteria.where("value").is("0").andOperator(Criteria.where("name").is("标签1"))));
+        boolean result = mongoTemplate.exists(query, IUser.class);
+        System.out.println(result);
+    }
+
+    /**
+     * 针对子节点的分页显示
+     * 跳过一条,查询2条
+     */
+    @Test
+    public void test7(){
+        Query query = new Query();
+        query.fields().slice("tags", 1, 2);
+        List<IUser> users = mongoTemplate.find(query, IUser.class);
+        System.out.println(users);
+    }
+
+    /**
+     * 插入或者修改
+     */
+    @Test
+    public void test8(){
+        Query query = new Query().addCriteria(Criteria.where("id").is(1));
+        Update update = new Update().set("name", "名称2");
+        mongoTemplate.upsert(query, update, Role.class);
+    }
+
+    /**
+     * 查询tags节点索引位置0存在元素的记录
+     */
+    @Test
+    public void test9(){
+        List<IUser> list = mongoTemplate.find(Query.query(Criteria.where("tags.0").exists(true)), IUser.class);
+    }
+
+    /**
+     * 生成数据
+     */
+    @Test
+    public void test10(){
         for(int j=0; j<5; j++){
             List<Replay> list = new ArrayList<>();
 
@@ -150,42 +192,6 @@ public class MongoTemplateTest {
 
             mongoTemplate.insert(comment);
         }
-    }
-
-    @Test
-    public void test6(){
-        List<Comment> list = mongoTemplate.find(new Query(), Comment.class);
-        System.out.println(111);
-    }
-
-    @Test
-    public void test7(){
-        Role role = new Role();
-        role.setId(1);
-        role.setName("测试");
-        role.setDescr("描述");
-        mongoTemplate.insert(role);
-    }
-
-    @Test
-    public void test8(){
-        Query query = new Query().addCriteria(Criteria.where("id").is(1));
-        Update update = new Update().set("name", "名称");
-        mongoTemplate.upsert(query, update, Role.class);
-    }
-
-    @Test
-    public void test9(){
-        List<JobTo> list = mongoTemplate.find(Query.query(Criteria.where("tag.0").exists(true)), JobTo.class);
-        //提取jobId
-        List<String> jobIds = list.stream().map(JobTo::getJobId).collect(Collectors.toList());
-    }
-
-    @Test
-    public void test10(){
-        List<Integer> tag = new ArrayList<>();
-        tag.add(9);
-        List<JobTo> list = mongoTemplate.find(Query.query(Criteria.where("tag").all(tag)), JobTo.class);
     }
 
     @Test
@@ -206,37 +212,13 @@ public class MongoTemplateTest {
         mongoTemplate.insert(question);
     }
 
+    /**
+     * 原先为Integer的num字段，设置了数字后
+     * 修改类型为String，mongodb还是可以正确映射进来
+     * 重新update后会修改db的类型
+     */
     @Test
     public void test12(){
-        List<Question> questions = mongoTemplate.findAll(Question.class);
-    }
-
-    @Test
-    public void test13(){
-        //$lookup
-        /*Aggregation aggregation = Aggregation.newAggregation(
-                Aggregation.lookup("job", "jobId", "jobId", "jobInfo")
-        );
-        List<BasicDBObject> list = mongoTemplate.aggregate(aggregation, JobCollection.class, BasicDBObject.class).getMappedResults();*/
-
-        //需要连接的集合-本表字段-外表字段-外表连接后的别名
-    }
-
-    @Test
-    public void test14(){
-//        Question question = new Question();
-//        question.setContent("1111");
-//        question.setTest(11);
-//        mongoTemplate.insert(question);
-
-        Question question = mongoTemplate.findOne(Query.query(Criteria.where("content").is("1111")), Question.class);
-        System.out.println(JSON.toJSONString(question));
-        mongoTemplate.updateFirst(Query.query(Criteria.where("content").is("1111")), Update.update("test", 11.0), Question.class);
-    }
-
-    @Test
-    public void test15(){
-        //原先为Integer的num字段，设置了数字后，修改类型为String，mongodb还是可以正确映射进来，重新update后会修改db的类型
         Job job = new Job();
 //        job.setNum(100);
 //        job.setTitle("测试1");
@@ -244,9 +226,11 @@ public class MongoTemplateTest {
         Job job1 = mongoTemplate.findOne(Query.query(Criteria.where("jobId").is("5cf729d32b550f0904dbc2c8")), Job.class);
     }
 
+    /**
+     * 新写法记录
+     */
     @Test
-    public void test16(){
-        //新写法记录
+    public void test13(){
 //        long d = System.currentTimeMillis();
 //        Query query = new Query();
 //        query.addCriteria(Criteria.where("releaseStatus").is(22));
@@ -269,8 +253,11 @@ public class MongoTemplateTest {
 //        System.out.println(commandResult.get("values").toString());
     }
 
+    /**
+     * 需要连接的集合-本表字段-外表字段-外表连接后的别名
+     */
     @Test
-    public void test17(){
+    public void test14(){
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("province").is("广东省")),
                 Aggregation.lookup("user", "userId", "userId", "userInfo"),

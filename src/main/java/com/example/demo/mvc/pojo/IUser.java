@@ -22,6 +22,8 @@ public class IUser implements Serializable{
 	private int status;
 
     private List<Tag> tags;
+
+    private List<String> phones;
     /**
      * 引入WebConfig里的FastJson格式化
      */
