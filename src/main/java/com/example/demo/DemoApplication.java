@@ -23,18 +23,19 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableCaching
 @SpringBootApplication
 @EnableAsync
-public class DemoApplication implements WebServerFactoryCustomizer<UndertowServletWebServerFactory>{
+//implements WebServerFactoryCustomizer<UndertowServletWebServerFactory>
+public class DemoApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Override
-	public void customize(UndertowServletWebServerFactory factory) {
-		factory.addBuilderCustomizers((UndertowBuilderCustomizer) builder -> {
-			builder.addHttpListener(8080, "0.0.0.0");
-		});
-	}
+//	@Override
+//	public void customize(UndertowServletWebServerFactory factory) {
+//		factory.addBuilderCustomizers((UndertowBuilderCustomizer) builder -> {
+//			builder.addHttpListener(8080, "0.0.0.0");
+//		});
+//	}
 
 
 	/**
