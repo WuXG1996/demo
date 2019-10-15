@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.undertow.UndertowBuilderCustomizer;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -23,6 +24,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableCaching
 @SpringBootApplication
 @EnableAsync
+@ServletComponentScan
 //implements WebServerFactoryCustomizer<UndertowServletWebServerFactory>
 public class DemoApplication {
 

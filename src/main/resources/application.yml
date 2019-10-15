@@ -1,0 +1,6 @@
+logging:
+  level:
+    com.example.demo: debug
+    org.springframework.data.mongodb.core.MongoTemplate: debug
+    com.example.demo.web.interceptor.TimeInterceptor: debug
+    com.example.demo.web.filter.TimeFilter: debug
