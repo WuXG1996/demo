@@ -43,15 +43,15 @@ public class WebConfig implements WebMvcConfigurer {
 	 * 注册自定义filter
 	 * @return
 	 */
-	@Bean
-	public FilterRegistrationBean timeFilter() {
-	    FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-	    registrationBean.setFilter(new TimeFilter());
-	    registrationBean.setUrlPatterns(new ArrayList<String>(){{
-	    	this.add("/*");
-		}});
-	    return registrationBean;
-	}
+//	@Bean
+//	public FilterRegistrationBean timeFilter() {
+//	    FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+//	    registrationBean.setFilter(new TimeFilter());
+//	    registrationBean.setUrlPatterns(new ArrayList<String>(){{
+//	    	this.add("/*");
+//		}});
+//	    return registrationBean;
+//	}
 
 	/**
 	 * 注册servlet

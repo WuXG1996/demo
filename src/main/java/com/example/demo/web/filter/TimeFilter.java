@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
  *
  */
 @Slf4j
-//@Component
 @WebFilter(filterName = "timeFilter", urlPatterns = "/*")
 //https://blog.csdn.net/fxbin123/article/details/82558174
 public class TimeFilter implements Filter{
