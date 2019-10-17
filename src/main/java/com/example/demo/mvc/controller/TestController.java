@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -115,5 +119,12 @@ public class TestController {
 	public String test4(){
 		testService.test4();
 		return "ok";
+	}
+
+	@GetMapping("/test5")
+	public Map<String, Object> test5(){
+		Map<String, Object> map = new HashMap<>();
+		map.put("info", null);
+		return map;
 	}
 }

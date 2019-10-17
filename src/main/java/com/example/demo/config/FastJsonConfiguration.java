@@ -37,6 +37,7 @@ public class FastJsonConfiguration implements WebMvcConfigurer{
                 SerializerFeature.WriteNullNumberAsZero,
                 SerializerFeature.WriteNullListAsEmpty,
                 SerializerFeature.WriteNullBooleanAsFalse
+//                SerializerFeature.WriteMapNullValue
         );
         fastConverter.setFastJsonConfig(fastJsonConfig);
 
