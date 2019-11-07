@@ -2,7 +2,9 @@ package com.example.demo.java;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,4 +32,14 @@ public class JavaTest {
         map.put("111", "jj");
     }
 
+    @Test
+    public void test3(){
+        List<Integer> list = new ArrayList<>();
+        list.add(new Integer(11));
+        if(list.equals(new ArrayList<Integer>(){{
+            this.add(new Integer(11));
+        }})){
+            System.out.println(11111);
+        }
+    }
 }
