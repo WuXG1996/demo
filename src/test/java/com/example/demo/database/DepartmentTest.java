@@ -111,6 +111,9 @@ public class DepartmentTest {
         System.out.println(System.currentTimeMillis()-d1);
     }
 
+    /**
+     * 注明一个坑,一定要再数据源配置url上加&allowMultiQueries=true允许多条查询操作语句
+     */
     @Test
     public void testBatchUpdate(){
         BaseVo baseVo = new BaseVo();
