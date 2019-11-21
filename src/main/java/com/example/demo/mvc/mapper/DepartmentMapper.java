@@ -11,17 +11,17 @@ import java.util.List;
 @Mapper
 @Repository
 public interface DepartmentMapper {
-    public void insert(Department department);
+    void insert(Department department);
     
-    public Department getById(Integer id);
+    Department getById(Integer id);
 
     List<Department> selectDepartment(BaseVo baseVo);
 
     Long countDepartment();
     
-    public void update(Department department);
+    void update(Department department);
     
-    public void deleteById(Integer id);
+    void deleteById(Integer id);
 
     Long batchInsert(List<Department> list);
 

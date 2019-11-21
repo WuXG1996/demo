@@ -110,4 +110,22 @@ public class DepartmentTest {
 
         System.out.println(System.currentTimeMillis()-d1);
     }
+
+    @Test
+    public void testBatchUpdate(){
+        BaseVo baseVo = new BaseVo();
+        baseVo.setPageSize(100);
+        List<Department> list = departmentMapper.selectDepartment(baseVo);
+
+        List<Department> updateList = new ArrayList<>();
+        for (Department department : list) {
+            department.setName("修改后的名字");
+            department.setDescr("修改后的描述");
+            updateList.add(department);
+            if(updateList.size()==2){
+                departmentMapper.batchUpdate(updateList);
+                updateList.clear();
+            }
+        }
+    }
 }

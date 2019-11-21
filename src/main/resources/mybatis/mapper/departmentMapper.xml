@@ -40,7 +40,7 @@
          collection="list" list 即为 map传过来的参数key -->
         <foreach collection="list" separator=";" item="var">
             update department set
-            name = #{var.name}
+            name = #{var.name},descr=#{var.descr}
             where id = #{var.id}
         </foreach>
     </update>
