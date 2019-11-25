@@ -43,6 +43,21 @@ public class FileUtils {
 		return defExt.toLowerCase();
 	}
 
+//	public static void main(String[] args) {
+//		String str = "contract/13543/201909/aa.pdf";
+//		System.out.println(getFileName(str));
+//	}
+
+	/**
+	 * 根据urlpath获取文件名
+	 * @param urlPath
+	 * @return
+	 */
+	public static String getFileName(String urlPath){
+		int splitIndex = urlPath.lastIndexOf("/");
+		return urlPath.substring(splitIndex+1 , urlPath.length());
+	}
+
 	/**
 	 * 获取文件名称[不含后缀名]
 	 * 
