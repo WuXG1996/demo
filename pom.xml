@@ -158,18 +158,6 @@
 		  <artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		
-		<!-- 整合ActiveMQ -->
-		<dependency>
-		  <groupId>org.springframework.boot</groupId>
-		  <artifactId>spring-boot-starter-activemq</artifactId>
-		</dependency>
-		
-		<!-- 如果需要配置连接池，添加如下依赖 -->
-		<dependency>
-		    <groupId>org.apache.activemq</groupId>
-		    <artifactId>activemq-pool</artifactId>
-		</dependency>
-
 		<!--mongoDB普通java包-->
 		<!--<dependency>
 			<groupId>org.mongodb</groupId>
