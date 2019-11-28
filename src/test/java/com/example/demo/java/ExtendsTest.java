@@ -1,7 +1,5 @@
 package com.example.demo.java;
 
-import com.example.demo.other.test.Father;
-import com.example.demo.other.test.Son;
 import org.junit.Test;
 
 /**
@@ -30,5 +28,31 @@ public class ExtendsTest {
     public void test3(){
         Father father = new Son();
         father.service();
+    }
+
+    public class Father {
+
+        public void service(){
+            System.out.println("Father.service");
+            doGet();
+        }
+
+        public void doGet(){
+            System.out.println("Father.doGet");
+        }
+    }
+
+    public class Son extends Father {
+
+        @Override
+        public void service(){
+            System.out.println("Son.service");
+            super.service();
+        }
+
+        @Override
+        public void doGet() {
+            System.out.println("Son.doGet");
+        }
     }
 }

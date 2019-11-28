@@ -2,6 +2,7 @@ package com.example.demo.mvc.controller;
 
 import com.example.demo.mvc.service.AsyncService;
 import com.example.demo.mvc.service.TestService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/6/5 12:43
  * @desc 测试异步线程执行
  */
+@Api(tags = {"异步测试"})
 @RestController
 @RequestMapping("/async")
 @Slf4j

@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.config.properties;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.PropertiesPropertySource;

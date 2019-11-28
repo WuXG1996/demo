@@ -1,25 +1,19 @@
 package com.example.demo.mvc.controller;
 
-import java.util.Date;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.mvc.pojo.IUser;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
-@Api(value="FastJson测试",tags={"测试接口"})
+import java.util.Date;
+
+@Api(tags={"测试接口"}, description = "序列化测试")
 @RestController
-@RequestMapping("fastjson")
+@RequestMapping("/fastjson")
 public class FastJsonController {
 	
-	@ApiOperation("获取用户信息")
+	@ApiOperation(value = "获取用户信息")
 	@ApiImplicitParam(name = "name", value = "用户名", dataType = "string", paramType = "query")
     @GetMapping("/test/{name}")
     public IUser test(@PathVariable("name") String name) {
@@ -35,8 +29,8 @@ public class FastJsonController {
      * 控制某个接口跨域
      * @return
      */
-	@ApiOperation("测试")
-	@RequestMapping("/test")
+	@ApiOperation("控制某个接口跨域")
+	@GetMapping("/test")
 	@CrossOrigin(origins="http://localhost:8020")
 	public IUser test(){
         IUser user = new IUser();
