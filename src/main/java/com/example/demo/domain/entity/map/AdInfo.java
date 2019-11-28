@@ -1,6 +1,5 @@
 package com.example.demo.domain.entity.map;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 /**
