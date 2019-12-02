@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Created by void on 2018/7/9.
@@ -219,11 +218,16 @@ public class MongoTemplateTest {
      */
     @Test
     public void test12(){
-        Job job = new Job();
-//        job.setNum(100);
+//        Job job = new Job();
+//        job.setNum("100");
 //        job.setTitle("测试1");
 //        mongoTemplate.insert(job);
-        Job job1 = mongoTemplate.findOne(Query.query(Criteria.where("jobId").is("5cf729d32b550f0904dbc2c8")), Job.class);
+
+        Job job = new Job();
+        job.setNum(200);
+        job.setTitle("测试2");
+        mongoTemplate.insert(job);
+        List<Job> list = mongoTemplate.findAll(Job.class);
     }
 
     /**
