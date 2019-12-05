@@ -20,8 +20,7 @@ public class RedisConfig {
      * @return
      */
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory)
-    {
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(redisConnectionFactory);
 
@@ -33,8 +32,14 @@ public class RedisConfig {
         template.setValueSerializer(fastJsonRedisSerializer);
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setHashValueSerializer(fastJsonRedisSerializer);
-        return  template;
+        return template;
     }
+    /*备注
+    * template的value序列化使用fastjson,对象可以直接用redisTemplate存入读取,无需Json.toJSONString,
+    * 如果这样操作会导致序列化两次,第一次吧java bean序列化为string
+    * 第二次把string序列化转义字符,导致在redis GUI里查看的数据都带了转义的"",影响查看体验
+    * 取出对象的时候强制类型转化为JSONObject再使用toJavaObject映射成具体对象
+    * */
 
     /**
      * 定义一个发布订阅的消费者,交给spring管理是为了在里面注入redisTemplate,利用redisTemplate设置的序列化方案来解码

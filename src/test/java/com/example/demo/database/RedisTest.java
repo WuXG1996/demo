@@ -1,12 +1,11 @@
 package com.example.demo.database;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.Tag;
 import com.example.demo.utils.BeanUtils;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +110,29 @@ public class RedisTest {
         //一次累加多少
         redisTemplate.opsForValue().increment("key3", 20);
     }
+
+    @Test
+    public void test13(){
+        IUser user = new IUser();
+        user.setId(1);
+        user.setAddress("深圳");
+        user.setBirthday(new Date());
+        user.setPhones(new ArrayList<String>(){{
+            this.add("11111111111");
+            this.add("22222222222");
+        }});
+        user.setUsername("void");
+        redisTemplate.opsForValue().set("user", user);
+//        redisTemplate.opsForValue().set("user", JSON.toJSONString(user));
+    }
+
+    @Test
+    public void test14(){
+        IUser user1 = ((JSONObject)redisTemplate.opsForValue().get("user")).toJavaObject(IUser.class);
+//        IUser user1 = JSON.parseObject(((String)redisTemplate.opsForValue().get("user")), IUser.class);
+        System.out.println(user1);
+    }
+
 
     //*********************hash******************
     @Test
