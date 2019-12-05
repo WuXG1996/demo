@@ -1,21 +1,8 @@
 package com.example.demo.java;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Scanner;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
+import java.util.zip.*;
 
 /**
  * 对IO流的测试用例
@@ -151,7 +138,6 @@ public class IOTest {
 	
 	/**
 	 * 复制文件
-	 * @param fileArray
 	 * @throws IOException
 	 */
 	public void test9() throws IOException{
