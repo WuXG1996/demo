@@ -146,10 +146,15 @@ public class MongoTemplateTest {
      */
     @Test
     public void test7(){
-        Query query = new Query();
-        query.fields().slice("tags", 1, 2);
-        List<IUser> users = mongoTemplate.find(query, IUser.class);
-        System.out.println(users);
+        //db.iUser.find({},{"tags":{$slice:[1,2]}})
+//        Query query = new Query();
+//        query.fields().slice("tags", 1, 2);
+//        List<IUser> users = mongoTemplate.find(query, IUser.class);
+//        System.out.println(users);
+
+        //查询评论
+        //db.comment.find({},{"replays":{$slice:[0,2]}})
+
     }
 
     /**
