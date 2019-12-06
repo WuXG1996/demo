@@ -1,9 +1,9 @@
 package com.example.demo.mvc.mapper;
 
 import com.example.demo.domain.BaseVo;
-import org.apache.ibatis.annotations.Mapper;
-
 import com.example.demo.mvc.pojo.Department;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +26,8 @@ public interface DepartmentMapper {
     Long batchInsert(List<Department> list);
 
     void batchUpdate(List<Department> list);
+
+    List<Department> selectList(@Param("name") String name, @Param("descr") String descr);
+
+    List<Department> selectList2(String name, String descr);
 }

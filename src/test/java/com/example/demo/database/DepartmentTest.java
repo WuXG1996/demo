@@ -1,26 +1,20 @@
 package com.example.demo.database;
 
-import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
-import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.example.demo.domain.BaseVo;
-import com.example.demo.utils.ExcelUtil;
+import com.example.demo.mvc.mapper.DepartmentMapper;
+import com.example.demo.mvc.pojo.Department;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.demo.mvc.mapper.DepartmentMapper;
-import com.example.demo.mvc.pojo.Department;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -130,5 +124,17 @@ public class DepartmentTest {
                 updateList.clear();
             }
         }
+    }
+
+    @Test
+    public void selectTest1(){
+        List<Department> list = departmentMapper.selectList("名字", "描述");
+        System.out.println(111);
+    }
+
+    @Test
+    public void selectTest2(){
+        List<Department> list = departmentMapper.selectList2("名字", "描述");
+        System.out.println(111);
     }
 }

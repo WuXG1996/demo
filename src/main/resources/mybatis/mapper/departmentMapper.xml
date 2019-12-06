@@ -24,7 +24,16 @@
     <select id="countDepartment" resultType="java.lang.Long">
         SELECT COUNT(1) from department
     </select>
-    
+
+    <select id="selectList" resultType="com.example.demo.mvc.pojo.Department">
+        SELECT * from department where name=#{name} and descr=#{descr}
+    </select>
+
+    <select id="selectList2" resultType="com.example.demo.mvc.pojo.Department">
+        <!-- [arg1, arg0, param1, param2] mybatis3.4.2 以后移除了#{0}的写法-->
+        SELECT * from department where name=#{arg0} and descr=#{arg1}
+    </select>
+
     <update id="update" parameterType="com.example.demo.mvc.pojo.Department">
         update department set descr = #{descr} where id = #{id}
     </update>
