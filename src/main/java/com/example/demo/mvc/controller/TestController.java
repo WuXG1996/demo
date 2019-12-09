@@ -1,21 +1,19 @@
 package com.example.demo.mvc.controller;
 
+import com.example.demo.mvc.dao.UserDao;
 import com.example.demo.mvc.pojo.IUser;
+import com.example.demo.mvc.pojo.Tag;
 import com.example.demo.mvc.service.TestService;
 import com.example.demo.web.aop.SysLog;
 import com.example.demo.web.aop.TestAnnotation;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import com.example.demo.mvc.dao.UserDao;
-import com.example.demo.mvc.pojo.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -36,6 +34,9 @@ public class TestController {
 	@RequestMapping("/test")
 	@SysLog
 	public String test(){
+//		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//		System.out.println(requestAttributes.getRequest().getRequestURI());
+//		System.out.println(JSON.toJSONString(requestAttributes.getRequest().getParameterMap()));
 		return "test";
 	}
 	
