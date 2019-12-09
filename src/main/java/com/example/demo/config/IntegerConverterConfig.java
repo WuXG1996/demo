@@ -20,6 +20,7 @@ public class IntegerConverterConfig implements Converter<String, Integer> {
 
     @Override
     public Integer convert(String source) {
+        long d = System.currentTimeMillis();
         String value = source.trim();
         if ("".equals(value)) {
             return null;
@@ -35,7 +36,9 @@ public class IntegerConverterConfig implements Converter<String, Integer> {
             throw new NumberFormatException("参数异常");
         }
 
-        return Integer.valueOf(value);
+        Integer result = Integer.valueOf(value);
+//        log.info("============解析Integer类型,数字:{},耗时:{}", value, System.currentTimeMillis()-d);
+        return result;
     }
 
 }

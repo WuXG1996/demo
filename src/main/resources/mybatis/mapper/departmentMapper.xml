@@ -17,7 +17,7 @@
         select id,name,descr from department where id = #{id}
     </select>
 
-    <select id="selectDepartment" parameterType="com.example.demo.domain.BaseVo" resultMap="BaseResultMap">
+    <select id="selectDepartment" parameterType="com.example.demo.domain.vo.BaseVo" resultMap="BaseResultMap">
         SELECT id,name,descr from department limit #{startRow},#{pageSize}
     </select>
 

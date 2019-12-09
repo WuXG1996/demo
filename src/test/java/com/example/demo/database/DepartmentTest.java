@@ -2,7 +2,7 @@ package com.example.demo.database;
 
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
-import com.example.demo.domain.BaseVo;
+import com.example.demo.domain.vo.BaseVo;
 import com.example.demo.mvc.mapper.DepartmentMapper;
 import com.example.demo.mvc.pojo.Department;
 import lombok.extern.slf4j.Slf4j;

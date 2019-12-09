@@ -1,5 +1,6 @@
 package com.example.demo.mvc.controller;
 
+import com.example.demo.domain.vo.TestVO;
 import com.example.demo.mvc.dao.UserDao;
 import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.Tag;
@@ -133,4 +134,17 @@ public class TestController {
 	public void test6(IUser user){
 		System.out.println(user);
 	}
+
+	@GetMapping("/test7")
+	public void test7(TestVO vo){
+		System.out.println(vo);
+	}
+
+//	public static void main(String[] args) {
+//		String s = "";
+//		for(int i=1;i<=100;i++){
+//			s = s+"&p"+i+"="+i;
+//		}
+//		System.out.println(s);
+//	}
 }

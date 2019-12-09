@@ -1,6 +1,6 @@
 package com.example.demo.mvc.mapper;
 
-import com.example.demo.domain.BaseVo;
+import com.example.demo.domain.vo.BaseVo;
 import com.example.demo.mvc.pojo.Department;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
