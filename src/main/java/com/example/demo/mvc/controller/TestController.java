@@ -128,4 +128,9 @@ public class TestController {
 		map.put("info", null);
 		return map;
 	}
+
+	@GetMapping("/test6")
+	public void test6(IUser user){
+		System.out.println(user);
+	}
 }

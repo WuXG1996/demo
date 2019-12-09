@@ -1,12 +1,12 @@
 package com.example.demo.mvc.pojo;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Data
 public class IUser implements Serializable{
@@ -19,7 +19,7 @@ public class IUser implements Serializable{
 	@Excel(name = "地址")
 	private String address;
     @Excel(name = "状态",replace = {"启用_0", "停用_1"})
-	private int status;
+	private Integer status;
 
     private List<Tag> tags;
 
