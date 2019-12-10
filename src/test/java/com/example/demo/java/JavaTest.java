@@ -14,7 +14,7 @@ public class JavaTest {
 
     @Test
     public void test1(){
-        System.out.println(String.format("(apply_types=%s OR hope_jobs=%s", "aa", "bb"));
+        System.out.println(String.format("(apply_types=%s OR hope_jobs=%s)", "aa", "bb"));
     }
 
     @Test
