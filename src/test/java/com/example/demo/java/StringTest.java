@@ -29,6 +29,7 @@ public class StringTest {
         String str1 = new String("void");
         String str2 = "void";
         String str3 = "void";
+        System.out.println(str1.hashCode()+"_"+str2.hashCode()+"_"+str3.hashCode());
         System.out.println(str1==str2);
         System.out.println(str2==str3);
         str1 = str1.intern();
