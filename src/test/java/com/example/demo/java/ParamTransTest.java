@@ -170,7 +170,7 @@ public class ParamTransTest {
 
     @Test
     public void stringTest(){
-        String a = "A";
+        String a = new String("A");
         String b = "B";
         System.out.println(a.hashCode());
         System.out.println("a:"+a+"  b:"+b);
@@ -188,7 +188,7 @@ public class ParamTransTest {
     }
 
     public void changeString(String p1, String p2){
-        p1 = "A";
+        p1 = new String("A");
         p2 = "wp";
         System.out.println(p1.hashCode());
         System.out.println("p1:"+p1+"  p2:"+p2);
