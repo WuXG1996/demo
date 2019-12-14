@@ -43,6 +43,22 @@ public class ParamTransTest {
     }
 
     @Test
+    public void integerTest3(){
+        Integer a = 2;
+        System.out.println(a.hashCode());
+        System.out.println(a);
+        a = changeInteger2(a);
+        System.out.println(a.hashCode());
+        System.out.println(a);
+    }
+
+    public Integer changeInteger2(Integer param){
+        param = param + 100;
+        System.out.println(param);
+        return param;
+    }
+
+    @Test
     public void shortTest(){
         Short a = 1;
         Short b = 2;
@@ -156,9 +172,11 @@ public class ParamTransTest {
     public void stringTest(){
         String a = "A";
         String b = "B";
+        System.out.println(a.hashCode());
         System.out.println("a:"+a+"  b:"+b);
 //        stringMethod(a, b);
         changeString(a, b);
+        System.out.println(a.hashCode());
         System.out.println("a:"+a+"  b:"+b);
     }
 
@@ -170,8 +188,9 @@ public class ParamTransTest {
     }
 
     public void changeString(String p1, String p2){
-        p1 = "gg";
+        p1 = "A";
         p2 = "wp";
+        System.out.println(p1.hashCode());
         System.out.println("p1:"+p1+"  p2:"+p2);
     }
 
