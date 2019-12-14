@@ -201,6 +201,8 @@ public class ParamTransTest {
         User user2 = new User();
         user2.setUsername("void");
 
+        log.info("user1的hashcode:{},user2的hashcode:{}", user1.hashCode(), user2.hashCode());
+
         log.info("user1:{},user2:{}", user1, user2);
         objectMethod(user1, user2);
         log.info("user1:{},user2:{}", user1, user2);
