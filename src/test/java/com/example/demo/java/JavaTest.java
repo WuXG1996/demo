@@ -52,4 +52,21 @@ public class JavaTest {
         }
     }
 
+    /**
+     * 执行顺序
+     */
+    @Test
+    public void test4(){
+        System.out.println(1111);
+        try{
+            System.out.println(22222);
+            return;
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println(333333);
+        }finally {
+            System.out.println(44444);
+        }
+        System.out.println(5555);
+    }
 }
