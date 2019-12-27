@@ -1,7 +1,6 @@
 package com.example.demo.config;
 
 import org.springframework.context.annotation.Configuration;
-
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,22 +20,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2Configuration {
 
-	public Docket accessToken(){
+	public Docket api(){
 		return new Docket(DocumentationType.SWAGGER_2)
+				.apiInfo(apiInfo()) // 配置说明
                 .groupName("api")// 定义组
                 .select() // 选择那些路径和 api 会生成 document
                 .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller")) // 拦截的包路径
                 .paths(PathSelectors.regex("/*/.*"))// 拦截的接口路径
-                .build() // 创建
-                .apiInfo(apiInfo()); // 配置说明
+                .build(); // 创建
 	}
 	
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()//
-                .title("Spring Boot 之 Web 篇")// 标题
-                .description("spring boot Web 相关内容")// 描述
-                .termsOfServiceUrl("http://www.extlight.com")//
-                .contact(new Contact("moonlightL", "http://www.extlight.com", "445847261@qq.com"))// 联系
+                .title("接口文档")// 标题
+                .description("springboot swagger 接口文档")// 描述
+                .termsOfServiceUrl("http://www.wxg123.com")//
+                .contact(new Contact("void", "http://www.wxg123.com", "289665247@qq.com"))// 联系
                 .version("1.0")// 版本
                 .build();
     }
