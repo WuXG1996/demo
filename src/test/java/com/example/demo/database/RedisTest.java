@@ -15,7 +15,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.Base64Utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -290,5 +296,16 @@ public class RedisTest {
     @Test
     public void test33(){
         System.out.println(redisTemplate.opsForZSet().reverseRangeByScore("zset2", 1,3));
+    }
+
+    /**
+     * 将图片存入redis
+     * @throws IOException
+     */
+    @Test
+    public void test40() throws IOException {
+        File file = new File("G:/72054296_p0.png");
+        byte[] fileByte = Files.readAllBytes(file.toPath());
+        redisTemplate.opsForValue().set("myPic", Base64Utils.encodeToString(fileByte));
     }
 }

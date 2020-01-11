@@ -1,5 +1,7 @@
 package com.example.demo.java;
 
+import org.junit.Test;
+
 import java.io.*;
 import java.util.Scanner;
 import java.util.zip.*;
@@ -23,8 +25,9 @@ public class IOTest {
 	/**
 	 * 创建一个新文件
 	 */
+	@Test
 	public void test1(){
-		File f = new File("E://hello.txt");
+		File f = new File("F://hello.txt");
 		try{
 			f.createNewFile();
 		}catch(Exception e){
