@@ -1,8 +1,10 @@
 package com.example.demo.utils;
 
-import java.text.DecimalFormat;
-
 import org.apache.commons.lang3.StringUtils;
+
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -16,6 +18,9 @@ public class ChineseUtils {
 	private static String[] hanArr = { "零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖" };
 	private static String[] unitArr = { "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿", "拾", "佰", "仟" };
 
+	private static String[] hanArrSimple = { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+	private static String[] unitArrSimple = { "十", "百", "千", "万", "十", "百", "千", "亿", "十", "百", "千" };
+
 	/**
 	 * 数字转中文数字（不能不小数点）
 	 * @param numStr
@@ -27,9 +32,9 @@ public class ChineseUtils {
 		for (int i = 0; i < numLen; i++) {
 			int num = numStr.charAt(i) - 48;
 			if (i != numLen - 1 && num != 0) {
-				result += hanArr[num] + unitArr[numLen - 2 - i];
+				result += hanArrSimple[num] + unitArrSimple[numLen - 2 - i];
 			} else {
-				result += hanArr[num];
+				result += hanArrSimple[num];
 			}
 		}
 		return result;
@@ -195,12 +200,32 @@ public class ChineseUtils {
 		return chs;
 	}
 
+	public static String replaceNumber(String str){
+		StringBuilder result = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
+		Character[] chars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+		List<Character> list = Arrays.asList(chars);
+		for(int i=0;i<str.length();i++){
+			Character character = str.charAt(i);
+			if(list.contains(character)){
+				//包含数字加入待处理的StringBuilder
+				sb.append(character);
+			}else if(sb.length()>0){
+				result.append(numberToChinese(sb.toString()));
+			}else{
+				result.append(character);
+			}
+		}
+		return result.toString();
+	}
+
 	public static void main(String[] arg){
 //		System.out.println("========"+getChinese("40.21",0));
 //		System.out.println("========"+getChinese("40.21",10));
-//		System.out.println("========"+numberToChinese("4021"));
+//		System.out.println("========"+numberToChinese("c渝北厂区4000急聘保安"));
 //		System.out.println("========"+signleNum2Chinese("40.21",1));
 //		System.out.println("========"+numberToChinese(40.2d,7,"&nbsp;"));
-		System.out.println("========"+numberFormatAndAddSymbolByBefore(40.2d,"&nbsp;"));
+//		System.out.println("========"+numberFormatAndAddSymbolByBefore(40.2d,"&nbsp;"));
+		System.out.println(replaceNumber("c渝北厂区4000急聘保安"));
 	}
 }
