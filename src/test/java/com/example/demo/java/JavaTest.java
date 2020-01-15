@@ -1,5 +1,6 @@
 package com.example.demo.java;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -68,5 +69,20 @@ public class JavaTest {
             System.out.println(44444);
         }
         System.out.println(5555);
+    }
+
+    /**
+     * 可以用运行时异常来判断一次http请求是否出现网络问题没得到同步响应
+     */
+    @Test
+    public void test5(){
+        System.out.println("开始执行");
+        String result = "";
+        //something to do
+        if(StringUtils.isBlank(result)){
+            System.out.println("判断为空停止执行");
+            throw new RuntimeException("没有返回结果");
+        }
+        System.out.println("执行结束");
     }
 }

@@ -4,10 +4,15 @@ import com.example.demo.mvc.pojo.IUser;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.MediaType;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -49,5 +54,18 @@ public class RedisController {
         }});
         user.setUsername("void");
         redisTemplate.convertAndSend(channel, user);
+    }
+
+    /**
+     * 读取redis中存入的图片,produces可以控制返回的图片类型jpg,png
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "/image",produces = MediaType.IMAGE_PNG_VALUE)
+    @ResponseBody
+    public byte[] image() throws Exception {
+        String picBase64 = (String) redisTemplate.opsForValue().get("myPic");
+        byte[] bytes = Base64Utils.decodeFromString(picBase64);
+        return bytes;
     }
 }
