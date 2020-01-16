@@ -32,6 +32,25 @@ public class ChineseUtils {
 		for (int i = 0; i < numLen; i++) {
 			int num = numStr.charAt(i) - 48;
 			if (i != numLen - 1 && num != 0) {
+				result += hanArr[num] + unitArr[numLen - 2 - i];
+			} else {
+				result += hanArr[num];
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 数字转中文数字（不能不小数点）
+	 * @param numStr
+	 * @return
+	 */
+	public static String numberToChineseUpgrade(String numStr) {
+		String result = "";
+		int numLen = numStr.length();
+		for (int i = 0; i < numLen; i++) {
+			int num = numStr.charAt(i) - 48;
+			if (i != numLen - 1 && num != 0) {
 				result += hanArrSimple[num] + unitArrSimple[numLen - 2 - i];
 			} else {
 				result += hanArrSimple[num];
@@ -211,7 +230,8 @@ public class ChineseUtils {
 				//包含数字加入待处理的StringBuilder
 				sb.append(character);
 			}else if(sb.length()>0){
-				result.append(numberToChinese(sb.toString()));
+				result.append(numberToChineseUpgrade(sb.toString()));
+				sb.delete(0, sb.length());
 			}else{
 				result.append(character);
 			}
@@ -222,10 +242,11 @@ public class ChineseUtils {
 	public static void main(String[] arg){
 //		System.out.println("========"+getChinese("40.21",0));
 //		System.out.println("========"+getChinese("40.21",10));
-//		System.out.println("========"+numberToChinese("c渝北厂区4000急聘保安"));
+//		System.out.println("========"+numberToChinese("4000"));
 //		System.out.println("========"+signleNum2Chinese("40.21",1));
 //		System.out.println("========"+numberToChinese(40.2d,7,"&nbsp;"));
 //		System.out.println("========"+numberFormatAndAddSymbolByBefore(40.2d,"&nbsp;"));
+
 		System.out.println(replaceNumber("c渝北厂区4000急聘保安"));
 	}
 }
