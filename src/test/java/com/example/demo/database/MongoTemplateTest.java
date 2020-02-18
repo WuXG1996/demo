@@ -370,4 +370,19 @@ public class MongoTemplateTest {
         List<Job> list4 = mongoTemplate.find(query4, Job.class);
         list4.forEach(System.out::println);
     }
+
+    @Test
+    public void lbsTest5(){
+        //杜鹃山
+        Point p = new Point(113.935729,22.529711);
+
+        Job job1 = new Job("深圳大学", 113.936501,22.532387);
+        Job job5 = new Job("深大运动广场", 113.938003,22.530405);
+        Job job6 = new Job("乔相阁", 113.933892,22.527399);
+        Polygon points = new Polygon(new Point(job1.getLon(), job1.getLat()), new Point(job5.getLon(), job5.getLat()), new Point(job6.getLon(), job6.getLat()));
+        Query query = new Query();
+        query.addCriteria(Criteria.where("location2dSphere").within(points));
+        List<Job> list = mongoTemplate.find(query, Job.class);
+        list.forEach(System.out::println);
+    }
 }
