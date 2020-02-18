@@ -6,10 +6,12 @@ import com.example.demo.mvc.pojo.mongodb.Address;
 import com.example.demo.mvc.pojo.mongodb.AddressBO;
 import com.example.demo.mvc.pojo.mongodb.Answer;
 import com.example.demo.mvc.pojo.mongodb.Question;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.geo.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -274,5 +276,98 @@ public class MongoTemplateTest {
         );
         List<AddressBO> list = mongoTemplate.aggregate(aggregation, Address.class, AddressBO.class).getMappedResults();
         list.forEach(address-> System.out.println(address.toString()));
+    }
+
+    /**
+     * 使用lbs功能需要先创建索引
+     */
+    @Test
+    public void lbsTest1(){
+        Job job1 = new Job("深圳大学", 113.936501,22.532387);
+        Job job2 = new Job("科苑", 113.946458,22.526758);
+        Job job3 = new Job("微软科通大厦", 113.946458,22.526758);
+        Job job4 = new Job("杜鹃山", 113.935783,22.529711);
+        Job job5 = new Job("深大运动广场", 113.938003,22.530405);
+        Job job6 = new Job("紫檀轩", 113.932585,22.529433);
+
+        List<Job> list = Lists.newArrayList(job1, job2, job3, job4, job5, job6);
+        mongoTemplate.insertAll(list);
+    }
+
+    /**
+     * 圆形
+     * withinSphere方法只能用圆形,内部和within一样使用的是 $geoWithin
+     * $geoWithin 不需要空间索引,支持box[矩形],polygon[多边形],circle[圆],sphere[球]
+     */
+    @Test
+    public void lbsTest2(){
+        //杜鹃山
+        Point center = new Point(113.935729,22.529711);
+        Circle circle = new Circle(center, new Distance(1000/1000d, Metrics.KILOMETERS));
+
+        Query query1 = Query.query(Criteria.where("location2d").withinSphere(circle));
+        List<Job> list1 = mongoTemplate.find(query1, Job.class);
+        list1.forEach(System.out::println);
+
+        Query query2 = Query.query(Criteria.where("location2dSphere").withinSphere(circle));
+        List<Job> list2 = mongoTemplate.find(query2, Job.class);
+        list2.forEach(System.out::println);
+    }
+
+    /**
+     * 矩形
+     */
+    @Test
+    public void lbsTest3(){
+        //深大运动广场
+        Point bottomLeft = new Point(113.938003,22.530405);
+        //紫檀轩
+        Point topRight = new Point(113.932585,22.529433);
+        Box box = new Box(bottomLeft, topRight);
+
+        Query query1 = new Query(Criteria.where("location2d").within(box));
+        List<Job> list1 = mongoTemplate.find(query1, Job.class);
+        list1.forEach(System.out::println);
+
+        Query query2 = new Query(Criteria.where("location2dSphere").within(box));
+        List<Job> list2 = mongoTemplate.find(query2, Job.class);
+        list2.forEach(System.out::println);
+    }
+
+    /**
+     * 附近的
+     * $near $nearSphere 都需要创建空间索引
+     */
+    @Test
+    public void lbsTest4(){
+        //需要创建索引，官方推荐使用2dsphere,2d索引是早在2.2版本就存在的使用新的能够兼容GeoJSON和传统坐标
+        //db.job.createIndex({"location2dSphere":"2dsphere"})
+        //db.job.createIndex({"location2d":"2d"})
+
+        //杜鹃山
+        Point p = new Point(113.935729,22.529711);
+
+        //控制最大最小查询范围单位为米
+        Query query1 = new Query(Criteria.where("location2d").near(p).maxDistance(100000).minDistance(0));
+        List<Job> list1 = mongoTemplate.find(query1, Job.class);
+        list1.forEach(System.out::println);
+
+        //$near 如果想查询2d球面坐标,需要特定格式查询,否则会报错
+//        $geometry: {
+//            type: "Point" ,
+//                    coordinates: [ <longitude> , <latitude> ]
+//        }
+//        Query query2 = new Query(Criteria.where("location2dSphere").near(p));
+//        List<Job> list2 = mongoTemplate.find(query2, Job.class);
+//        list2.forEach(System.out::println);
+
+        //$nearSphere 能同时支持2d传统坐标和2dSphere球面坐标
+        Query query3 = new Query(Criteria.where("location2d").nearSphere(p));
+        List<Job> list3 = mongoTemplate.find(query3, Job.class);
+        list3.forEach(System.out::println);
+
+        Query query4 = new Query(Criteria.where("location2dSphere").nearSphere(p));
+        List<Job> list4 = mongoTemplate.find(query4, Job.class);
+        list4.forEach(System.out::println);
     }
 }
