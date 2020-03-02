@@ -85,4 +85,17 @@ public class JavaTest {
         }
         System.out.println("执行结束");
     }
+
+    /**
+     * 16进制转化2进制,10进制
+     */
+    @Test
+    public void test6(){
+        Integer a = 0x75;
+        System.out.println(Integer.toUnsignedString(a, 2));
+
+        Integer b = Integer.parseUnsignedInt("75", 16);
+        System.out.println(Integer.toUnsignedString(b, 2));
+        System.out.println(b);
+    }
 }
