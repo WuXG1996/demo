@@ -1,12 +1,10 @@
 package com.example.demo.java;
 
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by void on 2018/11/26.
@@ -98,4 +96,53 @@ public class JavaTest {
         System.out.println(Integer.toUnsignedString(b, 2));
         System.out.println(b);
     }
+
+    /**
+     * ArrayList的subList返回的是一个ArrayList的视图,内部类,对其所有操作会反馈到原列表
+     */
+    @Test
+    public void test7(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);list.add(2);list.add(3);list.add(4);
+        List<Integer> subList = list.subList(0, 2);
+        subList.clear();
+    }
+
+    /**
+     * Arrays.asList生成的list不能使用add/remove/clear，因为生成的是Arrays的内部类,没有实现这些方法
+     * 且由于这个方法是适配器原理，对原本array的元素修改，会影响生成的list信息
+     */
+    @Test
+    public void test8(){
+        Integer[] array = {1, 2, 3, 4};
+        List<Integer> list = Arrays.asList(array);
+//        list.add(5);
+        array[0] = 5;
+    }
+
+    /**
+     * 不能再foreach循环里做remove和add,必须使用迭代器来操作,不然可能报错
+     */
+    @Test
+    public void test9(){
+        List<String> a = new ArrayList<>();
+        a.add("1");
+        a.add("2");
+//        for (String s : a) {
+//            if("2".equals(s)){
+//                a.remove(s);
+//            }
+//        }
+//        System.out.println(a);
+
+        Iterator<String> it = a.iterator();
+        while (it.hasNext()){
+            String temp = it.next();
+            if ("2".equals(temp)){
+                it.remove();
+            }
+        }
+        System.out.println(a);
+    }
+
 }

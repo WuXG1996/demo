@@ -2,7 +2,9 @@ package com.example.demo.domain.vo;
 
 public class BaseVo {
 
-    //当前页
+    /**
+     * 当前页
+     */
     private Integer pageNum = 1;
     //每页数量
     private Integer pageSize = 20;

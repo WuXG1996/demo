@@ -14,6 +14,8 @@ public class StringTest {
         //内部包装了一个字符数组
         String str = new String("void");
         System.out.println(str.hashCode());
+        System.out.println(str);
+        System.out.println(str.toString());
     }
 
     @Test
