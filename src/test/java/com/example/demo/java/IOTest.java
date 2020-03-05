@@ -1,6 +1,8 @@
 package com.example.demo.java;
 
 import org.junit.Test;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import java.io.*;
 import java.util.Scanner;
@@ -12,15 +14,6 @@ import java.util.zip.*;
  * 2018年3月20日下午9:07:05
  */
 public class IOTest {
-
-	/*public static void main(String[] args) {
-		IOTest t = new IOTest();
-		try {
-			t.test18();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
 
 	/**
 	 * 创建一个新文件
@@ -333,5 +326,30 @@ public class IOTest {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
 //		oos.writeObject(new SerialDemo("haha",22));
 		oos.close();
+	}
+
+    /**
+     * 测试读取图片成字节流,输出base64编码,解码转存文件
+     * @throws IOException
+     */
+	@Test
+	public void test19() throws IOException {
+        File file = new File("G:\\桔梗.png");
+        FileInputStream fin = new FileInputStream(file);
+        byte[] bytes  = new byte[fin.available()];
+        fin.read(bytes);
+        fin.close();
+
+        BASE64Encoder encoder = new BASE64Encoder();
+        String base64String = encoder.encode(bytes);
+        System.out.println(base64String);
+
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] tempBytes = decoder.decodeBuffer(base64String);
+
+        FileOutputStream fout = new FileOutputStream("F://桔梗小姐.jpeg");
+        //将字节写入文件
+        fout.write(tempBytes);
+        fout.close();
 	}
 }
