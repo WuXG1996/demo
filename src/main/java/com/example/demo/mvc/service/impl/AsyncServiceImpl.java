@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author void
  * @date 2019/6/5 12:44
- * @desc
+ * @desc 异步注解测试
  */
 @Service
 @Slf4j
@@ -16,12 +16,11 @@ public class AsyncServiceImpl implements AsyncService {
 
     @Async
     @Override
-    public void test1() {
+    public void testAsync() {
         long d= System.currentTimeMillis();
 
-        Thread thread = Thread.currentThread();
         try {
-            thread.sleep(2000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

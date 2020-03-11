@@ -7,5 +7,8 @@ package com.example.demo.mvc.service;
  */
 public interface AsyncService {
 
-    void test1();
+    /**
+     * 测试spring异步注解
+     */
+    void testAsync();
 }

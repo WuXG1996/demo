@@ -28,7 +28,7 @@ public class AsyncController {
     @GetMapping("/test1")
     public String test1(){
         long d1 = System.currentTimeMillis();
-        asyncService.test1();
+        asyncService.testAsync();
         long d2 = System.currentTimeMillis();
         log.info("外层执行耗时:d1:{},d2:{}", d1, d2);
         return "123";

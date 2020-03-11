@@ -1,19 +1,6 @@
 package com.example.demo.ali;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.aliyun.opensearch.DocumentClient;
-import com.aliyun.opensearch.SearcherClient;
-import com.aliyun.opensearch.sdk.dependencies.com.google.common.collect.Lists;
-import com.aliyun.opensearch.sdk.generated.commons.OpenSearchClientException;
-import com.aliyun.opensearch.sdk.generated.commons.OpenSearchException;
-import com.aliyun.opensearch.sdk.generated.search.*;
-import com.aliyun.opensearch.search.SearchParamsBuilder;
 import com.example.demo.mvc.pojo.IUser;
-import com.example.demo.mvc.pojo.JobTo;
-import com.example.demo.utils.OpenSearchUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +11,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by void on 2018/11/23.
  */
@@ -36,12 +20,6 @@ public class JobTest {
 
     @Autowired
     private MongoTemplate mongoTemplate;
-    @Autowired
-    private OpenSearchConfig openSearchConfig;
-    @Autowired
-    private DocumentClient documentClient;
-    @Autowired
-    private SearcherClient searcherClient;
 
     @Test
     public void test1(){
@@ -84,63 +62,6 @@ public class JobTest {
 //        }
     }
 
-    @Test
-    public void test2(){
-        List<JobTo> list = mongoTemplate.findAll(JobTo.class);
-        try {
-            OpenSearchUtil.saveOrUpdateList(openSearchConfig.getApplicationName(), openSearchConfig.getTableName(), documentClient, list);
-        } catch (OpenSearchClientException e) {
-            e.printStackTrace();
-        } catch (OpenSearchException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void test3() throws OpenSearchClientException, OpenSearchException {
-        //分页及返回格式
-        Config config = new Config(Lists.newArrayList(openSearchConfig.getApplicationName()));
-        config.setStart(0);
-        config.setHits(10);
-        config.setSearchFormat(SearchFormat.JSON);
-
-        SearchParams searchParams = new SearchParams(config);
-        searchParams.setQuery("title:'岗位'&&kvpairs=query_tags:9=1:8=1:7=1");
-
-        Rank rank = new Rank();
-        rank.setSecondRankName("tag");
-        searchParams.setRank(rank);
-
-        Sort sort = new Sort();
-        sort.addToSortFields(new SortField("RANK", Order.DECREASE));
-        sort.addToSortFields(new SortField("create_time", Order.DECREASE));
-        searchParams.setSort(sort);
-
-        SearchParamsBuilder builder = SearchParamsBuilder.create(searchParams);
-
-        String str = this.searcherClient.execute(builder).getResult();
-        JSONObject obj = JSONObject.parseObject(str);
-        JSONObject result = (JSONObject) obj.get("result");
-        JSONArray items = (JSONArray) result.get("items");
-        for(int i=0;i<items.size();i++){
-            JSONObject jsonObject = items.getJSONObject(i);
-            String tag = jsonObject.getString("tag");//"1\t2\t3\t4\t5\t6\t7\t8\t9"
-            if(StringUtils.isBlank(tag)){
-                jsonObject.remove("tag");
-                continue;
-            }
-            String[] tags = tag.split("\t");
-            List<Integer> tagList = new ArrayList<>();
-            for (String s : tags) {
-                tagList.add(Integer.parseInt(s));
-            }
-            jsonObject.put("tag", tagList);
-        }
-        List<JobTo> list = JSONArray.parseArray(items.toJSONString(), JobTo.class);
-        for (JobTo jobTo : list) {
-            System.out.println(JSON.toJSONString(jobTo));
-        }
-    }
 
     @Test
     public void test4(){

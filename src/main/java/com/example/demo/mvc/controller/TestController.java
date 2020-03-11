@@ -1,6 +1,6 @@
 package com.example.demo.mvc.controller;
 
-import com.example.demo.mvc.dao.UserDao;
+import com.alibaba.fastjson.JSON;
 import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.Tag;
 import com.example.demo.mvc.service.TestService;
@@ -11,6 +11,8 @@ import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,8 +22,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-	@Autowired
-	private UserDao userDao;
 	@Autowired
 	private TestService testService;
 
@@ -34,9 +34,9 @@ public class TestController {
 	@RequestMapping("/test")
 	@SysLog
 	public String test(){
-//		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//		System.out.println(requestAttributes.getRequest().getRequestURI());
-//		System.out.println(JSON.toJSONString(requestAttributes.getRequest().getParameterMap()));
+		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		System.out.println(requestAttributes.getRequest().getRequestURI());
+		System.out.println(JSON.toJSONString(requestAttributes.getRequest().getParameterMap()));
 		return "test";
 	}
 	
@@ -44,12 +44,6 @@ public class TestController {
 	@SysLog("nima接口")
 	public String nima(){
 		return "nima";
-	}
-
-	@PostMapping("/testDate")
-	public void test(IUser user){
-		userDao.insert(user);
-		System.out.println("11111");
 	}
 
 	@PostMapping("/aaa")
@@ -63,9 +57,8 @@ public class TestController {
 	@TestAnnotation(id = 1, msg = "a")
 	@GetMapping("/a")
 	public void a(){
-		Thread thread = Thread.currentThread();
 		try {
-			thread.sleep(300L);
+			Thread.sleep(300L);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

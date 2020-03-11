@@ -22,7 +22,7 @@ public class TestServiceImpl implements TestService{
     public void test2() {
         long d1 = System.currentTimeMillis();
 
-        asyncService.test1();
+        asyncService.testAsync();
 
         long d2 = System.currentTimeMillis();
         log.info("----------中间层执行耗时:{},{},{}", d1, d2, d2-d1);

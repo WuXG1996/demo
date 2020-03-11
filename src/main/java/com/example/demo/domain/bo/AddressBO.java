@@ -1,5 +1,7 @@
-package com.example.demo.mvc.pojo.mongodb;
+package com.example.demo.domain.bo;
 
+import com.example.demo.mvc.pojo.mongodb.Address;
+import com.example.demo.mvc.pojo.mongodb.User;
 import lombok.Data;
 
 /**

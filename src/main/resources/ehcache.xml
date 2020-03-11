@@ -30,11 +30,11 @@
         <persistence strategy="localTempSwap"/>
     </defaultCache>
     <!-- 自定义缓存 -->
-    <cache name="department"
-           maxElementsInMemory="1000"
-           eternal="false"
-           timeToIdleSeconds="50"
-           timeToLiveSeconds="50"
-           overflowToDisk="false"
-           memoryStoreEvictionPolicy="LRU"/>
+    <!--<cache name="department"-->
+           <!--maxElementsInMemory="1000"-->
+           <!--eternal="false"-->
+           <!--timeToIdleSeconds="50"-->
+           <!--timeToLiveSeconds="50"-->
+           <!--overflowToDisk="false"-->
+           <!--memoryStoreEvictionPolicy="LRU"/>-->
 </ehcache>
