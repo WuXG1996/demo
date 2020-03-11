@@ -57,17 +57,19 @@
 		    <optional>true</optional>
 		</dependency>
 		
-		<!-- springboot的模板 -->
+		<!-- freemarker -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
-		
+
+		<!-- thymeleaf -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
+
+		<!-- fastjson -->
 		<dependency>
 		    <groupId>com.alibaba</groupId>
 		    <artifactId>fastjson</artifactId>
@@ -79,13 +81,6 @@
 		    <artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
-		
-		<!-- 整合 WebSocket -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
-		
 		<!-- 整合 JavaMail.利用上面已经导入的freemark模板 -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -126,18 +121,7 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
-		<!-- EhCache缓存 -->
-		<dependency>
-		  <groupId>org.springframework.boot</groupId>
-		  <artifactId>spring-boot-starter-cache</artifactId>
-		</dependency>
-		
-		<dependency>
-		  <groupId>net.sf.ehcache</groupId>
-		  <artifactId>ehcache</artifactId>
-		</dependency>
-		
+
 		<!-- Redis缓存 -->
 		<dependency>
 		  <groupId>org.springframework.boot</groupId>
@@ -156,12 +140,6 @@
 			<artifactId>easypoi-spring-boot-starter</artifactId>
 			<version>4.1.0</version>
 		</dependency>
-
-		<!--<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.1</version>
-		</dependency>-->
 
 		<!--opensearcch-->
 		<dependency>
@@ -221,19 +199,6 @@
 			<version>2.1.1</version>
 		</dependency>
 	</dependencies>
-	
-	<!-- springcloud -->
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Dalston.SR5</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<plugins>
