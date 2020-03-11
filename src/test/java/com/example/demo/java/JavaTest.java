@@ -1,6 +1,7 @@
 package com.example.demo.java;
 
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -9,6 +10,7 @@ import java.util.*;
 /**
  * Created by void on 2018/11/26.
  */
+@Slf4j
 public class JavaTest {
 
     /**
@@ -145,4 +147,21 @@ public class JavaTest {
         System.out.println(a);
     }
 
+    /**
+     * break指定跳出某层循环
+     */
+    @Test
+    public void test10(){
+        List<Integer> list1 = Lists.newArrayList(1, 2, 3, 4);
+        List<Integer> list2 = Lists.newArrayList(5, 6, 3, 7);
+        A:for(Integer a : list1){
+            log.info("一层循环,a:{}", a);
+            for(Integer b : list2){
+                log.info("a:{},b:{}", a, b);
+                if(a.equals(b)){
+                    break A;
+                }
+            }
+        }
+    }
 }
