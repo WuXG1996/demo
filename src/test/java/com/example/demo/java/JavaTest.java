@@ -1,5 +1,7 @@
 package com.example.demo.java;
 
+import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -11,6 +13,7 @@ import java.util.Map;
 /**
  * Created by void on 2018/11/26.
  */
+@Slf4j
 public class JavaTest {
 
     /**
@@ -97,5 +100,23 @@ public class JavaTest {
         Integer b = Integer.parseUnsignedInt("75", 16);
         System.out.println(Integer.toUnsignedString(b, 2));
         System.out.println(b);
+    }
+
+    /**
+     * 指定
+     */
+    @Test
+    public void test7(){
+        List<Integer> list1 = Lists.newArrayList(1, 2, 3, 4);
+        List<Integer> list2 = Lists.newArrayList(5, 6, 3, 7);
+        A:for(Integer a : list1){
+            log.info("一层循环,a:{}", a);
+            for(Integer b : list2){
+                log.info("a:{},b:{}", a, b);
+                if(a.equals(b)){
+                    break A;
+                }
+            }
+        }
     }
 }
