@@ -1,4 +1,4 @@
-package com.example.demo.config.redis;
+package com.example.demo.config.cache;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;

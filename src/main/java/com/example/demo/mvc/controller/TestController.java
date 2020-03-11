@@ -1,6 +1,5 @@
 package com.example.demo.mvc.controller;
 
-import com.example.demo.domain.vo.TestVO;
 import com.example.demo.mvc.dao.UserDao;
 import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.Tag;
@@ -10,8 +9,8 @@ import com.example.demo.web.aop.TestAnnotation;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -134,17 +133,4 @@ public class TestController {
 	public void test6(IUser user){
 		System.out.println(user);
 	}
-
-	@GetMapping("/test7")
-	public void test7(TestVO vo){
-		System.out.println(vo);
-	}
-
-//	public static void main(String[] args) {
-//		String s = "";
-//		for(int i=1;i<=100;i++){
-//			s = s+"&p"+i+"="+i;
-//		}
-//		System.out.println(s);
-//	}
 }

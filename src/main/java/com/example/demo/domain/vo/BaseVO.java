@@ -1,14 +1,16 @@
 package com.example.demo.domain.vo;
 
-public class BaseVo {
+/**
+ * 基础接口请求对象
+ * @author void
+ */
+public class BaseVO {
 
-    /**
-     * 当前页
-     */
+    /** 当前页 */
     private Integer pageNum = 1;
-    //每页数量
+    /** 每页数量 */
     private Integer pageSize = 20;
-    //每页开始
+    /** 每页开始 */
     private Integer startRow;
 
     public Integer getPageNum() {

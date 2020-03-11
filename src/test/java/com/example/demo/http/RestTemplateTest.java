@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.example.demo.domain.entity.map.TencentMapResponse;
+import com.example.demo.domain.bo.TencentMapResponseBO;
 import com.example.demo.mvc.pojo.IUser;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
@@ -78,7 +78,7 @@ public class RestTemplateTest {
     @Test
     public void test3(){
         RestTemplate restTemplate = this.getTemplateWithFastJson();
-        TencentMapResponse response = restTemplate.getForObject("https://apis.map.qq.com/ws/location/v1/ip?key={key}", TencentMapResponse.class, key);
+        TencentMapResponseBO response = restTemplate.getForObject("https://apis.map.qq.com/ws/location/v1/ip?key={key}", TencentMapResponseBO.class, key);
         System.out.println(response.toString());
     }
 
@@ -86,7 +86,7 @@ public class RestTemplateTest {
     public void test4(){
         //GET-map替换参数
         RestTemplate restTemplate = this.getTemplateWithFastJson();
-        TencentMapResponse response = restTemplate.getForObject("https://apis.map.qq.com/ws/location/v1/ip?key={key}", TencentMapResponse.class, ImmutableMap.of("key", key));
+        TencentMapResponseBO response = restTemplate.getForObject("https://apis.map.qq.com/ws/location/v1/ip?key={key}", TencentMapResponseBO.class, ImmutableMap.of("key", key));
         System.out.println(response.toString());
     }
 

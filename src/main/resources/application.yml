@@ -1,6 +1,32 @@
+#替代原本自带tomcat8080端口
+server:
+  port: 8089
+
 logging:
   level:
     com.example.demo: debug
     org.springframework.data.mongodb.core.MongoTemplate: debug
     com.example.demo.web.interceptor.TimeInterceptor: debug
     com.example.demo.web.filter.TimeFilter: debug
+
+spring:
+  #freemarker模板配置
+  freemarker:
+    cache: true
+  #thymeleaf模板配置
+  thymeleaf:
+    cache: true
+  #邮箱配置
+  mail:
+    #发送邮件的账号及开启smtp服务的密匙
+    host: smtp.qq.com
+    username: 289665247@qq.com
+    password:
+#  spring.mail.properties.mail.smtp.auth=true
+    #spring.mail.properties.mail.smtp.starttls.enable=true
+    #spring.mail.properties.mail.smtp.starttls.required=true
+  cache:
+    #也可以使用ehcache
+    type: redis
+    ehcache:
+      config: ehcache.xml

@@ -1,4 +1,4 @@
-package com.example.demo.config.redis;
+package com.example.demo.config.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
