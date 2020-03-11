@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.other;
 
 import com.example.demo.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
