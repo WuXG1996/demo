@@ -1,16 +1,19 @@
 package com.example.demo.other;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import com.example.demo.domain.constant.CommonConstant;
+import com.example.demo.domain.entity.excel.TestExcel;
 import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.StudentEntity;
-import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.utils.ExcelUtil;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -103,5 +106,28 @@ public class ExcelTest {
         fos.close();*/
 
        ExcelUtil.export("测试标题", StudentEntity.class, list, "D:/excel/");
+    }
+
+    @Test
+    public void test4() throws IOException {
+        List<TestExcel> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            TestExcel client = new TestExcel();
+            client.setAge(10);
+            client.setTimestamp(System.currentTimeMillis());
+            client.setCreateTime(new Date());
+            client.setSex1(CommonConstant.Sex.Male);
+            client.setSex2(CommonConstant.Sex.Female);
+            client.setSex3(CommonConstant.Sex.Male);
+            client.setSex4(CommonConstant.Sex.Female.getCode());
+            list.add(client);
+        }
+        Date start = new Date();
+        ExportParams params = new ExportParams("枚举测试", "测试", ExcelType.XSSF);
+        Workbook workbook = ExcelExportUtil.exportExcel(params, TestExcel.class, list);
+        System.out.println(new Date().getTime() - start.getTime());
+        FileOutputStream fos = new FileOutputStream("D:/home/excel/my.xlsx");
+        workbook.write(fos);
+        fos.close();
     }
 }
