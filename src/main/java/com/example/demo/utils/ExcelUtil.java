@@ -31,7 +31,7 @@ public class ExcelUtil {
      * @param resultPath   生成文件夹 eg:'D:/excel/'
      */
     public static String exportByTemplate(String templatePath, List list, String resultPath) {
-        String filePath = "";
+        String filePath;
         TemplateExportParams params = new TemplateExportParams(templatePath);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("list", list);
@@ -66,7 +66,7 @@ public class ExcelUtil {
     }
 
     public static String export(String title, Class<?> pojoClass, List list, String resultPath){
-        String filePath = "";
+        String filePath;
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(title,"sheet1"),pojoClass, list);
 
         File dir = new File(resultPath);
