@@ -27,4 +27,7 @@ public class TestExcel {
     private CommonConstant.Sex sex3;
     @Excel(name = "性别4", replace = {"男_1", "女_2"}, suffix = "生")
     private Integer sex4;
+
+    @Excel(name = "布尔值")
+    private Boolean result;
 }

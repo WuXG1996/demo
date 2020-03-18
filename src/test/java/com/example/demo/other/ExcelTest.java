@@ -120,6 +120,7 @@ public class ExcelTest {
             client.setSex2(CommonConstant.Sex.Female);
             client.setSex3(CommonConstant.Sex.Male);
             client.setSex4(CommonConstant.Sex.Female.getCode());
+            client.setResult(true);
             list.add(client);
         }
         Date start = new Date();
