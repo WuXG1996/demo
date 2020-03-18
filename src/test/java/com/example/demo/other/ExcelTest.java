@@ -126,14 +126,14 @@ public class ExcelTest {
             client.setResult(true);
             //网络上可直接访问的图片,http://y3.ifengimg.com/a/2016_03/6154e935f8a0fc6.jpg
             //阿里云的私有bucket图片无法直接请求到,就算是生成了后缀带临时token和过期时间的
-            client.setImgUrl("C:\\Users\\void\\Pictures\\80096027_p0.png");
+            client.setImgUrl("D://80120998_p0.png");
             list.add(client);
         }
         Date start = new Date();
         ExportParams params = new ExportParams("枚举测试", "测试", ExcelType.XSSF);
         Workbook workbook = ExcelExportUtil.exportExcel(params, TestExcel.class, list);
         System.out.println(new Date().getTime() - start.getTime());
-        FileOutputStream fos = new FileOutputStream("D:/home/excel/my.xlsx");
+        FileOutputStream fos = new FileOutputStream("D:/my.xlsx");
         workbook.write(fos);
         fos.close();
     }
