@@ -14,6 +14,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Test;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -111,7 +114,7 @@ public class ExcelTest {
     @Test
     public void test4() throws IOException {
         List<TestExcel> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             TestExcel client = new TestExcel();
             client.setAge(10);
             client.setTimestamp(System.currentTimeMillis());
@@ -121,6 +124,9 @@ public class ExcelTest {
             client.setSex3(CommonConstant.Sex.Male);
             client.setSex4(CommonConstant.Sex.Female.getCode());
             client.setResult(true);
+            //网络上可直接访问的图片,http://y3.ifengimg.com/a/2016_03/6154e935f8a0fc6.jpg
+            //阿里云的私有bucket图片无法直接请求到,就算是生成了后缀带临时token和过期时间的
+            client.setImgUrl("C:\\Users\\void\\Pictures\\80096027_p0.png");
             list.add(client);
         }
         Date start = new Date();
