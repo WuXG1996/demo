@@ -7,6 +7,7 @@ import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.Tag;
 import com.example.demo.utils.BeanUtils;
 import com.google.common.collect.ImmutableList;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,6 +145,23 @@ public class RedisTest {
     @Test
     public void test15(){
         IUser iUser = redisService.get("user", IUser.class);
+    }
+
+    @Test
+    public void test16(){
+        IUser user1 = new IUser();
+        user1.setUsername("tom");
+        user1.setBirthday(new Date());
+        user1.setPassword("123");
+
+        IUser user2 = new IUser();
+        user2.setUsername("john");
+        user2.setBirthday(new Date());
+        user2.setPassword("123");
+        List<IUser> list = Lists.newArrayList(user1, user2);
+
+        redisService.set("users", list);
+        List<IUser> result = redisService.list("users", IUser.class);
     }
 
 
