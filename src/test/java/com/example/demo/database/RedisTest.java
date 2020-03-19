@@ -2,6 +2,7 @@ package com.example.demo.database;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.example.demo.config.cache.RedisService;
 import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.Tag;
 import com.example.demo.utils.BeanUtils;
@@ -18,8 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Base64Utils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
@@ -37,6 +36,9 @@ public class RedisTest {
 
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private RedisService redisService;
+
     private static String key1 = "key1";
     private static String key2 = "key2";
 
@@ -137,6 +139,11 @@ public class RedisTest {
         IUser user1 = ((JSONObject)redisTemplate.opsForValue().get("user")).toJavaObject(IUser.class);
 //        IUser user1 = JSON.parseObject(((String)redisTemplate.opsForValue().get("user")), IUser.class);
         System.out.println(user1);
+    }
+
+    @Test
+    public void test15(){
+        IUser iUser = redisService.get("user", IUser.class);
     }
 
 
