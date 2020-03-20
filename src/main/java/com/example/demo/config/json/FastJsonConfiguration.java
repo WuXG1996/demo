@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.config.json;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -33,11 +33,12 @@ public class FastJsonConfiguration implements WebMvcConfigurer{
         //创建fastJson配置
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(
-                SerializerFeature.WriteNullStringAsEmpty,
-                SerializerFeature.WriteNullNumberAsZero,
-                SerializerFeature.WriteNullListAsEmpty,
-                SerializerFeature.WriteNullBooleanAsFalse
+//                SerializerFeature.WriteNullStringAsEmpty,
+//                SerializerFeature.WriteNullNumberAsZero,
+                SerializerFeature.WriteNullListAsEmpty
+//                SerializerFeature.WriteNullBooleanAsFalse
         );
+        fastJsonConfig.setSerializeFilters(new DefaultValueFilter());
         fastConverter.setFastJsonConfig(fastJsonConfig);
 
         //处理中文乱码问题
