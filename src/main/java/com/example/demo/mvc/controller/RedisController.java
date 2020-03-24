@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,7 +32,7 @@ public class RedisController {
      */
     @GetMapping("/pubSub")
     public void pubSub(String message){
-        String channel = "channel-void";
+        String channel = "test";
         redisTemplate.convertAndSend(channel, message);
     }
 
