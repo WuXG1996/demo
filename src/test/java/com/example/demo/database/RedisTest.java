@@ -37,8 +37,6 @@ public class RedisTest {
 
     @Autowired
     private RedisTemplate redisTemplate;
-    @Autowired
-    private RedisService redisService;
 
     private static String key1 = "key1";
     private static String key2 = "key2";
@@ -140,28 +138,6 @@ public class RedisTest {
         IUser user1 = ((JSONObject)redisTemplate.opsForValue().get("user")).toJavaObject(IUser.class);
 //        IUser user1 = JSON.parseObject(((String)redisTemplate.opsForValue().get("user")), IUser.class);
         System.out.println(user1);
-    }
-
-    @Test
-    public void test15(){
-        IUser iUser = redisService.get("user", IUser.class);
-    }
-
-    @Test
-    public void test16(){
-        IUser user1 = new IUser();
-        user1.setUsername("tom");
-        user1.setBirthday(new Date());
-        user1.setPassword("123");
-
-        IUser user2 = new IUser();
-        user2.setUsername("john");
-        user2.setBirthday(new Date());
-        user2.setPassword("123");
-        List<IUser> list = Lists.newArrayList(user1, user2);
-
-        redisService.set("users", list);
-        List<IUser> result = redisService.list("users", IUser.class);
     }
 
 

@@ -32,4 +32,6 @@ public class TestExcel {
     private Boolean result;
     @Excel(name = "网络图片", type = 2)
     private String imgUrl;
+    @Excel(name = "分数")
+    private Double score;
 }

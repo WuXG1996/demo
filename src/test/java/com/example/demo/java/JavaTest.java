@@ -164,4 +164,16 @@ public class JavaTest {
             }
         }
     }
+
+    /**
+     * object类型的数值类型默认为Integer
+     */
+    @Test
+    public void test11(){
+        Object object = 1;
+        System.out.println(object.getClass());
+
+        Object object2 = 1.1;
+        System.out.println(object2.getClass());
+    }
 }
