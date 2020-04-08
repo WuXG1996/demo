@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
@@ -51,6 +53,14 @@ public class RedisConfig {
     }
 
     /**
+     * 绑定消息监听者和接收监听的方法
+     */
+    @Bean
+    public MessageListenerAdapter listenerAdapter() {
+        return new MessageListenerAdapter(new RedisSubscriber());
+    }
+
+    /**
      * redis发布订阅监听容器
      * @param redisConnectionFactory
      * @return
@@ -60,6 +70,7 @@ public class RedisConfig {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(redisConnectionFactory);
         container.addMessageListener(consumerRedis(), new ChannelTopic("channel-void"));
+        container.addMessageListener(listenerAdapter(), new PatternTopic("test"));
         return container;
     }
 }
