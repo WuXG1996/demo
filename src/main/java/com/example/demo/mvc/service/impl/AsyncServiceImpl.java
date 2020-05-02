@@ -28,4 +28,14 @@ public class AsyncServiceImpl implements AsyncService {
         long d2 = System.currentTimeMillis();
         log.info("异步方法执行:{},{},{}", d, d2, d2-d);
     }
+
+    @Async
+    @Override
+    public void testAsync2(Integer i) {
+        System.out.println("i的值:"+i);
+    }
+
+    private void printTest(int i){
+
+    }
 }

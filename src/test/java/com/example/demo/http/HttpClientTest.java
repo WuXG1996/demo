@@ -2,6 +2,7 @@ package com.example.demo.http;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.mvc.pojo.IUser;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 
@@ -22,6 +24,7 @@ import java.util.Date;
  * @date 2019/8/14 17:43
  * @desc
  */
+@Slf4j
 public class HttpClientTest {
 
     //腾讯地图测试key
@@ -77,5 +80,32 @@ public class HttpClientTest {
         }
 
         System.out.println(res);
+    }
+
+    @Test
+    public void test3() throws Exception {
+        String url = "****";
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet get = new HttpGet(url);
+        HttpResponse response = client.execute(get);
+         //        获取消息头
+         //        Header[] headers = response.getAllHeaders();
+         //        for (Header header : headers) {
+         //            System.out.println(MessageFormat.format("header:{0}={1}", header.getName(), header.getValue()));
+         //        }
+        String fileName = response.getHeaders("Content-Disposition")[0].getValue().split("filename=")[1];
+        log.info("文件名为" + fileName);
+        if (response.getStatusLine().getStatusCode() == 200) {
+            //得到实体
+            HttpEntity entity = response.getEntity();
+            byte[] data = EntityUtils.toByteArray(entity);
+            //存入磁盘
+            FileOutputStream fos = new FileOutputStream(fileName);
+            fos.write(data);
+            fos.close();
+            log.info("文件下载成功！");
+        } else {
+            throw new Exception("文件下载失败！Http状态码为" + response.getStatusLine().getStatusCode());
+        }
     }
 }

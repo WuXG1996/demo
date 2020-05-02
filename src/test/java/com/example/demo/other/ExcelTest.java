@@ -5,6 +5,7 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import com.example.demo.domain.Bank;
 import com.example.demo.domain.constant.CommonConstant;
 import com.example.demo.domain.entity.excel.TestExcel;
 import com.example.demo.mvc.pojo.IUser;
@@ -14,12 +15,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Test;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by void on 2018/7/6.
@@ -136,5 +132,20 @@ public class ExcelTest {
         FileOutputStream fos = new FileOutputStream("D:/my.xlsx");
         workbook.write(fos);
         fos.close();
+    }
+
+    @Test
+    public void test5(){
+        ImportParams params = new ImportParams();
+        List<Bank> list = ExcelImportUtil.importExcel(new File("D:/test.xls"), Bank.class, params);
+        Set<String> codes = new HashSet<>();
+        for(Bank bank : list){
+            if(codes.contains(bank.getCode())){
+                continue;
+            }
+            System.out.println("insert into t_bank (bank_name,bank_type_code) value ('"+bank.getName()+"','"+bank.getCode()+"');");
+            codes.add(bank.getCode());
+        }
+        System.out.println(111);
     }
 }

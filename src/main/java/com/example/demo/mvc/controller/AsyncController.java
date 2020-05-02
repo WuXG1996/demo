@@ -42,4 +42,11 @@ public class AsyncController {
         log.info("外层执行耗时:d1:{},d2:{},{}", d1, d2, d2-d1);
         return "222";
     }
+
+    @GetMapping("/test3")
+    public void test3(){
+        for(int i=0;i<10;i++){
+            asyncService.testAsync2(i);
+        }
+    }
 }

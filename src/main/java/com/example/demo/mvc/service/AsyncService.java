@@ -11,4 +11,6 @@ public interface AsyncService {
      * 测试spring异步注解
      */
     void testAsync();
+
+    void testAsync2(Integer i);
 }
