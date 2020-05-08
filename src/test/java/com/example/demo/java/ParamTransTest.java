@@ -220,7 +220,7 @@ public class ParamTransTest {
     @Test
     public void objectTest2(){
         User user = new User();
-        user.setUserId(1L);
+        user.setUserId(1);
         user.setUsername("void");
         log.info("user:{}", user);
         change(user);
