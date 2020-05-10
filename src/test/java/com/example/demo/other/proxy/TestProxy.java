@@ -5,6 +5,9 @@ import org.junit.Test;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
+/**
+ * 参考 https://www.jianshu.com/p/9bcac608c714
+ */
 public class TestProxy {
 
     /**
@@ -15,7 +18,10 @@ public class TestProxy {
         HelloClassProxy helloClassProxy = new HelloClassProxy();
         helloClassProxy.sayHello();
     }
-    
+
+    /**
+     * 动态代理
+     */
     @Test
     public void test2(){
         HelloInterface hello = new HelloClass();
