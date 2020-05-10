@@ -2,12 +2,11 @@ package com.example.demo.database;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.demo.config.cache.RedisService;
 import com.example.demo.mvc.pojo.IUser;
 import com.example.demo.mvc.pojo.Tag;
+import com.example.demo.mvc.pojo.mongodb.User;
 import com.example.demo.utils.BeanUtils;
 import com.google.common.collect.ImmutableList;
-import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -308,5 +307,71 @@ public class RedisTest {
         File file = new File("G:/72054296_p0.png");
         byte[] fileByte = Files.readAllBytes(file.toPath());
         redisTemplate.opsForValue().set("myPic", Base64Utils.encodeToString(fileByte));
+    }
+    
+    @Test
+    public void test41(){
+        Set<String> set1 = new HashSet<>();
+        set1.add("970bfd1b5d744f6dac969661dad6e7c6");
+        set1.add("2b9462b9f2ce4b7282f7e63ee752159f");
+        set1.add("efa5a809aa0d4251b7970a19b7e7c964");
+        set1.add("1dc41fa35f2344ca9cdece80d393215f");
+        set1.add("856750212af34815a04bc0c3025e8ffa");
+        set1.add("6f4ad69f01bb4c41b627e477462a3509");
+        set1.add("eaaec9ce871e4e5ab9e7ae939032514c");
+        set1.add("946b855f9a7b4fe49f3b011a49d3722a");
+        set1.add("f878992e17f34ce3bae1a7ceb6dd059c");
+        set1.add("edac778e489c4518a09951ea430c534e");
+        String[] strs1 = new String[set1.size()];
+        set1.toArray(strs1);
+        redisTemplate.opsForSet().add("set1", strs1);
+
+        Set<String> set2 = new HashSet<>();
+        set2.add("970bfd1b5d744f6dac969661dad6e7c6");
+        set2.add("2b9462b9f2ce4b7282f7e63ee752159f");
+        set2.add("efa5a809aa0d4251b7970a19b7e7c964");
+        set2.add("1dc41fa35f2344ca9cdece80d393215f");
+        set2.add("856750212af34815a04bc0c3025e8ffa");
+        set2.add("6f4ad69f01bb4c41b627e477462a3509");
+        set2.add("eaaec9ce871e4e5ab9e7ae939032514c");
+        set2.add("946b855f9a7b4fe49f3b011a49d3722a");
+        set2.add("f878992e17f34ce3bae1a7ceb6dd059c");
+        set2.add("7b554324c3e54724abef165c7577ff4e");
+        String[] strs2 = new String[set2.size()];
+        set2.toArray(strs2);
+        redisTemplate.opsForSet().add("set2", strs2);
+    }
+    
+    @Test
+    public void test42(){
+        //交集
+        Set<String> set1 = redisTemplate.opsForSet().intersect("set1", "set2");
+        //差集
+        Set<String> set2 = redisTemplate.opsForSet().difference("set1", "set2");
+        //并集
+        Set<String> set3 = redisTemplate.opsForSet().union("set1", "set2");
+        System.out.println(1);
+    }
+    
+    @Test
+    public void test43(){
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setUsername("wxg1");
+        
+        User user2 = new User();
+        user2.setUserId(2);
+        user2.setUsername("wxg2");
+        
+        redisTemplate.opsForValue().set("string1", user1);
+        redisTemplate.opsForValue().set("string2", user2);
+        
+        redisTemplate.opsForHash().put("hash", "uk1", user1);
+        redisTemplate.opsForHash().put("hash", "uk2", user2);
+        
+        redisTemplate.opsForSet().add("set", user1, user2);
+        
+        redisTemplate.opsForZSet().add("zset", user1, 1);
+        redisTemplate.opsForZSet().add("zset", user2, 2);
     }
 }
