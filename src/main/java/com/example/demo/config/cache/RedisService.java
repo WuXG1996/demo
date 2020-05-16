@@ -9,8 +9,10 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,6 +25,8 @@ public class RedisService {
 
     @Autowired
     private RedisTemplate redisTemplate;
+    
+    private static final String FOLDER_STR = "::";
 
     /**
      * 获取redis对象
@@ -40,7 +44,7 @@ public class RedisService {
      * @return
      */
     public Object get(String folder, String key){
-        return this.get(folder.concat("::").concat(key));
+        return this.get(folder.concat(FOLDER_STR).concat(key));
     }
 
     /**
@@ -75,7 +79,7 @@ public class RedisService {
      * @return
      */
     public <T> T get(String folder, String key, Class<T> entityClass){
-        return this.get(folder.concat("::").concat(key), entityClass);
+        return this.get(folder.concat(FOLDER_STR).concat(key), entityClass);
     }
 
     /**
@@ -99,7 +103,7 @@ public class RedisService {
      * @return
      */
     public <T> List<T> list(String folder, String key, Class<T> entityClass){
-        return this.list(folder.concat("::").concat(key), entityClass);
+        return this.list(folder.concat(FOLDER_STR).concat(key), entityClass);
     }
 
     /**
@@ -131,8 +135,66 @@ public class RedisService {
      * @param unit
      */
     public void set(String folder, String key, Object object, long timeout, TimeUnit unit){
-        this.set(folder.concat("::").concat(key), object, timeout, unit);
+        this.set(folder.concat(FOLDER_STR).concat(key), object, timeout, unit);
     }
 
+    /**
+     * 批量添加元素到set
+     * @param key
+     * @param collection
+     */
+    public Long sAdd(String key, Collection<String> collection){
+        return redisTemplate.opsForSet().add(key, collection.toArray(new String[collection.size()]));
+    }
 
+    /**
+     * 带包名的批量添加元素到set
+     * @param folder
+     * @param key
+     * @param collection
+     * @return
+     */
+    public Long sAdd(String folder, String key, Collection<String> collection){
+        return this.sAdd(folder.concat(FOLDER_STR).concat(key), collection);
+    }
+
+    /**
+     * 哈希添加元素
+     * @param key
+     * @param hashKey
+     * @param value
+     */
+    public void hPut(String key, String hashKey, Object value){
+        redisTemplate.opsForHash().put(key, hashKey, value);
+    }
+
+    /**
+     * 带文件夹哈希添加元素
+     * @param folder
+     * @param key
+     * @param hashKey
+     * @param value
+     */
+    public void hPut(String folder, String key, String hashKey, Object value){
+        this.hPut(folder.concat(FOLDER_STR).concat(key), hashKey, value);
+    }
+    
+    /**
+     * 哈希批量添加元素
+     * @param key
+     * @param map
+     */
+    public void hPutAll(String key, Map<String, Object> map){
+        redisTemplate.opsForHash().putAll(key, map);
+    }
+
+    /**
+     * 带文件夹哈希批量添加元素
+     * @param folder
+     * @param key
+     * @param map
+     */
+    public void hPutAll(String folder, String key, Map<String, Object> map){
+        this.hPutAll(folder.concat(FOLDER_STR).concat(key), map);
+    }
 }

@@ -5,6 +5,10 @@ import com.example.demo.domain.constant.CommonConstant.Sex;
 import com.example.demo.config.cache.RedisService;
 import com.example.demo.domain.entity.excel.TestExcel;
 import com.example.demo.mvc.pojo.IUser;
+import com.example.demo.mvc.pojo.mongodb.User;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -112,5 +117,29 @@ public class RedisServiceTest {
         Date date = new Date();
 //        redisService.set("t", date);
         Date date1 = redisService.get("t", Date.class);
+    }
+    
+    @Test
+    public void test8(){
+        List<String> list = Lists.newArrayList("1", "2", "3");
+        Set<String> set = Sets.newHashSet("1", "2", "3");
+        redisService.sAdd("listCache", list);
+        redisService.sAdd("setCache", set);
+    }
+    
+    @Test
+    public void test9(){
+        User user1 = new User();
+        user1.setUserId(1);
+        user1.setUsername("wxg1");
+
+        User user2 = new User();
+        user2.setUserId(2);
+        user2.setUsername("wxg2");
+        
+        redisService.hPut("h1", "user1", user1);
+        redisService.hPut("h1", "user2", user2);
+
+        redisService.hPutAll("h2", ImmutableMap.of("user1", user1, "user2", user2));
     }
 }

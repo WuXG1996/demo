@@ -7,6 +7,7 @@ import com.example.demo.mvc.pojo.Tag;
 import com.example.demo.mvc.pojo.mongodb.User;
 import com.example.demo.utils.BeanUtils;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -373,5 +374,14 @@ public class RedisTest {
         
         redisTemplate.opsForZSet().add("zset", user1, 1);
         redisTemplate.opsForZSet().add("zset", user2, 2);
+    }
+    
+    @Test
+    public void test44(){
+        redisTemplate.opsForSet().add("1", 1,2,3);
+        String[] strs = {"1", "2", "3"};
+        redisTemplate.opsForSet().add("2", strs);
+        List<String> list = Lists.newArrayList("1", "2","3");
+        redisTemplate.opsForSet().add("3", list.toArray(new String[list.size()]));
     }
 }
