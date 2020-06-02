@@ -176,4 +176,18 @@ public class JavaTest {
         Object object2 = 1.1;
         System.out.println(object2.getClass());
     }
+
+    /**
+     * 测试log4j的日志打印error写法
+     */
+    @Test
+    public void test12(){
+        try{
+            int a = 1;
+            int b = 0;
+            System.out.println(a/b);
+        }catch (Exception e){
+            log.error("报错了", e);
+        }
+    }
 }
