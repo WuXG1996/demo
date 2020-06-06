@@ -190,4 +190,15 @@ public class JavaTest {
             log.error("报错了", e);
         }
     }
+
+    /**
+     * 浮点数加减乘除运算都会丢失精度
+     */
+    @Test
+    public void test13(){
+        double bounty = 3845.19;
+        double temp = 2561.89;
+        double reward = 2561.88;
+        System.out.println(bounty-temp+reward);
+    }
 }
