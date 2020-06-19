@@ -1,13 +1,13 @@
 package com.example.demo.java;
 
-import org.apache.poi.ss.formula.functions.T;
+import com.example.demo.mvc.pojo.Job;
 import org.junit.Test;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -72,5 +72,11 @@ public class LambdaTest {
         String[] strs = {"apple", "banana", "ice", "water"};
         String str = Arrays.asList(strs).stream().min(Comparator.comparing(string->string.length())).get();
         System.out.println(str);
+    }
+    
+    @Test
+    public void test6(){
+        List<Job> list = new ArrayList<>();
+        Job max = CollectionUtils.isEmpty(list) ? null : list.stream().max(Comparator.comparing(job->job.getNum())).get();
     }
 }
