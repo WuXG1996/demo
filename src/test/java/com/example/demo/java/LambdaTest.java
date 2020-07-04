@@ -76,7 +76,7 @@ public class LambdaTest {
         Optional<Object> accessTokenCache = Optional.ofNullable("111");
         String str = accessTokenCache.map(a -> {
             return method1();
-        }).orElse("333");
+        }).orElse(method2());
         System.out.println(str);
     }
 
