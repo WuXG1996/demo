@@ -3,10 +3,7 @@ package com.example.demo.java;
 import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -72,5 +69,24 @@ public class LambdaTest {
         String[] strs = {"apple", "banana", "ice", "water"};
         String str = Arrays.asList(strs).stream().min(Comparator.comparing(string->string.length())).get();
         System.out.println(str);
+    }
+
+    @Test
+    public void test6(){
+        Optional<Object> accessTokenCache = Optional.ofNullable("111");
+        String str = accessTokenCache.map(a -> {
+            return method1();
+        }).orElse("333");
+        System.out.println(str);
+    }
+
+    private String method1(){
+        System.out.println("内部check");
+        return "222";
+    }
+
+    private String method2(){
+        System.out.println("外部check");
+        return "333";
     }
 }
