@@ -1,5 +1,7 @@
 package com.example.demo.java;
 
+import com.example.demo.mvc.pojo.mongodb.User;
+import com.example.demo.utils.IdGenerate;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -200,5 +202,43 @@ public class JavaTest {
         double temp = 2561.89;
         double reward = 2561.88;
         System.out.println(bounty-temp+reward);
+    }
+
+    /**
+     * map来获取数据可以提高性能,减少两层for循环时间损耗
+     */
+    @Test
+    public void test14(){
+        long d = System.currentTimeMillis();
+        List<User> userList = new ArrayList<>();
+        int total = 100000;
+        for(int i=0;i<100000;i++){
+            User user = new User();
+            user.setUserId(total-i);
+            user.setUsername(IdGenerate.getRandomStringByLength(10));
+            userList.add(user);
+        }
+
+//        for(int i=1;i<=100000;i++){
+//            for(User user : userList){
+//                if(i==user.getUserId().intValue()){
+//                    System.out.println(user.getUserId());
+//                    break;
+//                }
+//            }
+//        }
+//        //32000
+//        System.out.println(System.currentTimeMillis()-d);
+
+        Map<Integer, User> map = new HashMap<>();
+        userList.stream().forEach(user -> {
+            map.put(user.getUserId(), user);
+        });
+        for(int i=1;i<=100000;i++){
+            User result = map.get(i);
+            System.out.println(result.getUserId());
+        }
+        //968
+        System.out.println(System.currentTimeMillis()-d);
     }
 }
