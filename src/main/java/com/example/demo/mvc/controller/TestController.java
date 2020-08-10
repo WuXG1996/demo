@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -125,5 +127,16 @@ public class TestController {
 	@GetMapping("/test6")
 	public void test6(IUser user){
 		System.out.println(user);
+	}
+	
+	@GetMapping("/head")
+	public void test7(HttpServletRequest request){
+		String token = request.getHeader("token");
+		System.out.println(token);
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while (headerNames.hasMoreElements()){
+			String str = headerNames.nextElement();
+			System.out.println(str + "-" + request.getHeader(str));
+		}
 	}
 }
