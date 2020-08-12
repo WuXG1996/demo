@@ -1,10 +1,12 @@
 package com.example.demo.mvc.service.impl;
 
+import com.example.demo.dao.mysql.mapper.UserMapper;
 import com.example.demo.mvc.service.AsyncService;
 import com.example.demo.mvc.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author void
@@ -17,6 +19,8 @@ public class TestServiceImpl implements TestService{
 
     @Autowired
     private AsyncService asyncService;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public void test2() {
@@ -44,5 +48,9 @@ public class TestServiceImpl implements TestService{
         log.info("===============TestServiceImpl.test4=============");
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void transactionalTest() {
+        
+    }
 }
