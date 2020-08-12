@@ -126,4 +126,9 @@ public class TestController {
 	public void test6(IUser user){
 		System.out.println(user);
 	}
+	
+	@GetMapping("/transactionalTest")
+	public void transactionalTest(){
+		testService.transactionalTest();
+	}
 }

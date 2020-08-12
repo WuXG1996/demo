@@ -30,9 +30,3 @@ spring:
     type: redis
     ehcache:
       config: ehcache.xml
-      
-mybatis:
-  mapper-locations:
-    - classpath*:com/example/demo/dao/mysql/mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true

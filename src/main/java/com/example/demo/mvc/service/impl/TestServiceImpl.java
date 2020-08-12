@@ -1,10 +1,12 @@
 package com.example.demo.mvc.service.impl;
 
 import com.example.demo.dao.mysql.mapper.UserMapper;
+import com.example.demo.dao.mysql.model.User;
 import com.example.demo.mvc.service.AsyncService;
 import com.example.demo.mvc.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,8 @@ public class TestServiceImpl implements TestService{
     private AsyncService asyncService;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     public void test2() {
@@ -51,6 +55,13 @@ public class TestServiceImpl implements TestService{
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void transactionalTest() {
-        
+        User user = new User();
+        user.setUsername("张三");
+        userMapper.insertSelective(user);
+
+        mongoTemplate.insert(user);
+
+        int a = 0;
+        System.out.println(1/0);
     }
 }
