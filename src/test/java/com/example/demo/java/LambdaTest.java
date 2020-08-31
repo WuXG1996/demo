@@ -79,4 +79,17 @@ public class LambdaTest {
         List<Job> list = new ArrayList<>();
         Job max = CollectionUtils.isEmpty(list) ? null : list.stream().max(Comparator.comparing(job->job.getNum())).get();
     }
+
+    /**
+     * lambda表达式用return来跳过foreach循环
+     */
+    @Test
+    public void test7(){
+        players.forEach(player-> {
+            if(player.equals("Novak Djokovic")){
+                return;
+            }
+            System.out.println(player+";");
+        });
+    }
 }
