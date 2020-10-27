@@ -92,4 +92,23 @@ public class LambdaTest {
             System.out.println(player+";");
         });
     }
+
+    @Test
+    public void test8(){
+        Optional<Object> accessTokenCache = Optional.ofNullable("111");
+        String str = accessTokenCache.map(a -> {
+            return method1();
+        }).orElse(method2());
+        System.out.println(str);
+    }
+
+    private String method1(){
+        System.out.println("内部check");
+        return "222";
+    }
+
+    private String method2(){
+        System.out.println("外部check");
+        return "333";
+    }
 }

@@ -129,6 +129,11 @@ public class TestController {
 		System.out.println(user);
 	}
 	
+	@GetMapping("/transactionalTest")
+	public void transactionalTest(){
+		testService.transactionalTest();
+	}
+	
 	@GetMapping("/head")
 	public void test7(HttpServletRequest request){
 		String token = request.getHeader("token");

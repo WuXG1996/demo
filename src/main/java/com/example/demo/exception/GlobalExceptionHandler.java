@@ -19,12 +19,12 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(Exception.class)
-    @ResponseBody
-    public Map<String,Object> defaultExceptionHandler(Exception e) {
-        Map<String,Object> map = new HashMap<>(2);
-        map.put("code", 500);
-        map.put("msg", e.getMessage());
-        return map;
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseBody
+//    public Map<String,Object> defaultExceptionHandler(Exception e) {
+//        Map<String,Object> map = new HashMap<>(2);
+//        map.put("code", 500);
+//        map.put("msg", e.getMessage());
+//        return map;
+//    }
 }
